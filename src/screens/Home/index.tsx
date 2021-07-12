@@ -4,6 +4,7 @@ import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import Logo from '../../assets/logo.svg'
+import { CardCar } from "../../components/CardCar";
 
 import { Container, Header, TotalCars, HeaderContent } from "./styles";
 
@@ -26,6 +27,8 @@ export function Home() {
           </TotalCars>
         </HeaderContent>
       </Header>
+
+      <CardCar />
     </Container>
   );
 }
