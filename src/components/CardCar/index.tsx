@@ -17,17 +17,31 @@ import {
   CarImage,
 } from "./styles";
 
-export function CardCar() {
+interface CardData {
+  brand: string;
+  name: string;
+  rent: {
+    period: string;
+    price: number;
+  },
+  thumbnail: string;
+}
+
+interface Props {
+  data: CardData;
+}
+
+export function CardCar({ data }: Props) {
   return (
     <Container>
       <Details>
-        <Brand>AUDI</Brand>
-        <Name>RS 5 COUPÉ</Name>
+        <Brand>{data.brand}</Brand>
+        <Name>{data.name}</Name>
 
         <About>
           <Rent>
-            <Period>Ao Dia</Period>
-            <Price>R$ 126</Price>
+            <Period>{data.rent.period}</Period>
+            <Price>{`R$ ${data.rent.price}`}</Price>
           </Rent>
 
           <Type>
@@ -36,7 +50,10 @@ export function CardCar() {
         </About>
       </Details>
 
-      <CarImage source={{ uri: '' }}/>
+      <CarImage 
+        resizeMode="contain"
+        source={{ uri: data.thumbnail }}
+        />
     </Container>
   );
 }
