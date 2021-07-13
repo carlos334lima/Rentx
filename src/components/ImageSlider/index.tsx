@@ -19,9 +19,9 @@ export function ImageSlider({ imagesURL }: Props) {
     <Container>
       <ImageIndexContainer>
         <ImageIndex active={true} />
-        <ImageIndex active={true} />
-        <ImageIndex active={true} />
-        <ImageIndex active={true} />
+        <ImageIndex active={false} />
+        <ImageIndex active={false} />
+        <ImageIndex active={false} />
       </ImageIndexContainer>
 
       <CarImageWrapper>

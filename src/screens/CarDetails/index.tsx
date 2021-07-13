@@ -21,7 +21,7 @@ import {
   Rent,
   Period,
   Price,
-  AccessoriesContainer,
+  Content,
   About,
   Footer,
   CarImages,
@@ -43,6 +43,24 @@ export function CarDetails() {
           ]}
         />
       </CarImages>
+
+      <Content>
+        <Details>
+          <Description>
+            <Brand>Lamborghini</Brand>
+            <Name>Huracan</Name>
+          </Description>
+
+          <Rent>
+            <Period>Ao dia</Period>
+            <Price>R$ 560</Price>
+          </Rent>
+        </Details>
+
+        <About>
+          o lendário
+        </About>
+      </Content>
     </Container>
   );
 }
