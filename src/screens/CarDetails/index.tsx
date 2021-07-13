@@ -24,8 +24,10 @@ import {
   AccessoriesContainer,
   About,
   Footer,
+  CarImages,
 } from "./styles";
 import { BackButton } from "../../components/BackButton";
+import { ImageSlider } from "../../components/ImageSlider";
 
 export function CarDetails() {
   return (
@@ -33,6 +35,14 @@ export function CarDetails() {
       <Header>
         <BackButton />
       </Header>
+
+      <CarImages>
+        <ImageSlider
+          imagesURL={[
+            "https://www.motortrend.com/uploads/sites/10/2018/05/2018-audi-rs5-4wd-coupe-angular-front.png",
+          ]}
+        />
+      </CarImages>
     </Container>
-  )
+  );
 }
