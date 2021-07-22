@@ -20,6 +20,7 @@ import {
   Content,
   Footer,
 } from "./styles";
+import { Calendars } from "../../components/Calendars";
 
 export function Scheduling() {
   const theme = useTheme();
@@ -54,7 +55,9 @@ export function Scheduling() {
         </RentalPeriod>
       </Header>
 
-      <Content></Content>
+      <Content>
+        <Calendars />
+      </Content>
 
       <Footer>
         <Button title="Confirmar"/>
