@@ -27,13 +27,13 @@ interface CardData {
   thumbnail: string;
 }
 
-interface Props {
+interface Props extends RectButtonProps {
   data: CardData;
 }
 
-export function CardCar({ data }: Props) {
+export function CardCar({ data, ...rest }: Props) {
   return (
-    <Container>
+    <Container {...rest}>
       <Details>
         <Brand>{data.brand}</Brand>
         <Name>{data.name}</Name>

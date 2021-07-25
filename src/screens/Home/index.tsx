@@ -6,9 +6,12 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Logo from "../../assets/logo.svg";
 import { CardCar } from "../../components/CardCar";
 
+import { useNavigation } from "@react-navigation/native";
+
 import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
 
 export function Home() {
+  const navigation = useNavigation();
   const cardDataOne = {
     brand: "AUDI",
     name: "RS COUDI 5",
@@ -19,6 +22,10 @@ export function Home() {
     thumbnail:
       "https://www.motortrend.com/uploads/sites/10/2018/05/2018-audi-rs5-4wd-coupe-angular-front.png",
   };
+
+  function handleNavigationDetails() {
+    navigation.navigate("CarDetails");
+  }
 
   return (
     <Container>
@@ -37,7 +44,9 @@ export function Home() {
       <CarList
         data={[1, 2, 3]}
         keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <CardCar data={cardDataOne} />}
+        renderItem={({ item }) => (
+          <CardCar data={cardDataOne} onPress={handleNavigationDetails} />
+        )}
       />
     </Container>
   );

@@ -42,9 +42,16 @@ import exchangeSvg from "../../assets/exchange.svg";
 import peopleSvg from "../../assets/people.svg";
 import { Button } from "../../components/Button";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
 
 export function SchedulingDetails() {
   const theme = useTheme();
+
+  const navigation = useNavigation();
+
+  function handleNavigationSchedulingConfirm(){
+    navigation.navigate("SchedulingComplete")
+  }
 
   return (
     <Container>
@@ -118,7 +125,7 @@ export function SchedulingDetails() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button color={theme.colors.success} title="Alugar Agora!" onPress={handleNavigationSchedulingConfirm}/>
       </Footer>
     </Container>
   );

@@ -21,8 +21,21 @@ import {
   Footer,
 } from "./styles";
 import { Calendars } from "../../components/Calendars";
+import { useNavigation } from "@react-navigation/native";
 
 export function Scheduling() {
+  const navigation = useNavigation();
+
+
+  function handleNavigationGoBack(){
+    navigation.goBack()
+  }
+
+  function handleNavigationSchedulingDetail(){
+    navigation.navigate("SchedulingDetails")
+  }
+
+
   const theme = useTheme();
   return (
     <Container>
@@ -33,7 +46,7 @@ export function Scheduling() {
       />
       <Header>
         <Back>
-          <BackButton color={theme.colors.shape} onPress={() => {}} />
+          <BackButton color={theme.colors.shape} onPress={handleNavigationGoBack} />
         </Back>
 
         <Title>
@@ -60,7 +73,7 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar"/>
+        <Button title="Confirmar" onPress={handleNavigationSchedulingDetail}/>
       </Footer>
     </Container>
   );
