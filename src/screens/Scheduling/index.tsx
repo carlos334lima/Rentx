@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { Alert, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import { useTheme } from "styled-components";
 
 import { BackButton } from "../../components/BackButton";

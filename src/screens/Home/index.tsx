@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { StatusBar } from "react-native";
 
 //@Libraries
-import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
 
@@ -37,17 +37,6 @@ export function Home() {
 
     fetchData();
   }, []);
-
-  const cardDataOne = {
-    brand: "AUDI",
-    name: "RS COUDI 5",
-    rent: {
-      period: "12 DIAS",
-      price: 126,
-    },
-    thumbnail:
-      "https://www.motortrend.com/uploads/sites/10/2018/05/2018-audi-rs5-4wd-coupe-angular-front.png",
-  };
 
   function handleNavigationDetails() {
     navigation.navigate("CarDetails");

@@ -1,5 +1,7 @@
-import React, { useCallback } from "react";
+import React from "react";
+import { StatusBar } from "react-native";
 
+//@Libraries
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
@@ -7,9 +9,23 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
 
-import { StatusBar } from "react-native";
+//@Components
+import { BackButton } from "../../components/BackButton";
+import { ImageSlider } from "../../components/ImageSlider";
+import { Acessory } from "../../components/Acessory";
+import { Button } from "../../components/Button";
 
+//@Assets
+import speedSvg from '../../assets/speed.svg'
+import accelerationSvg from '../../assets/acceleration.svg'
+import forceSvg from '../../assets/force.svg'
+import gasolineSvg from '../../assets/gasoline.svg'
+import exchangeSvg from '../../assets/exchange.svg'
+import peopleSvg from '../../assets/people.svg'
+
+//@Styles
 import {
   Container,
   Header,
@@ -27,18 +43,6 @@ import {
   Footer,
   CarImages,
 } from "./styles";
-import { BackButton } from "../../components/BackButton";
-import { ImageSlider } from "../../components/ImageSlider";
-import { Acessory } from "../../components/Acessory";
-
-import speedSvg from '../../assets/speed.svg'
-import accelerationSvg from '../../assets/acceleration.svg'
-import forceSvg from '../../assets/force.svg'
-import gasolineSvg from '../../assets/gasoline.svg'
-import exchangeSvg from '../../assets/exchange.svg'
-import peopleSvg from '../../assets/people.svg'
-import { Button } from "../../components/Button";
-import { useNavigation } from "@react-navigation/native";
 
 export function CarDetails() {
   const navigation = useNavigation();
