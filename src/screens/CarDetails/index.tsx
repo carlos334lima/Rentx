@@ -37,12 +37,24 @@ import forceSvg from '../../assets/force.svg'
 import gasolineSvg from '../../assets/gasoline.svg'
 import exchangeSvg from '../../assets/exchange.svg'
 import peopleSvg from '../../assets/people.svg'
+import { Button } from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 export function CarDetails() {
+  const navigation = useNavigation();
+
+  function handleNavigationGoBack(){
+    navigation.goBack()
+  }
+
+  function handleNavigationScheduling(){
+    navigation.navigate("Scheduling")
+  }
+
   return (
     <Container>
       <Header>
-        <BackButton />
+        <BackButton onPress={handleNavigationGoBack}/>
       </Header>
 
       <CarImages>
@@ -80,6 +92,10 @@ export function CarDetails() {
           o lendário
         </About>
       </Content>
+
+      <Footer>
+        <Button title="Escolher período de aluguel" onPress={handleNavigationScheduling} />
+      </Footer>
     </Container>
   );
 }
