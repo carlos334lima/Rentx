@@ -55,6 +55,16 @@ export function Home() {
           <TotalCars>Total 14 carros</TotalCars>
         </HeaderContent>
       </Header>
+<<<<<<< HEAD
+
+      <CarList
+        data={[1, 2, 3]}
+        keyExtractor={(item) => String(item)}
+        renderItem={({ item }) => <CardCar data={cardDataOne} />}
+      />
+
+      
+=======
       {loading ? (
         <Loading/>
       ) : (
@@ -66,6 +76,7 @@ export function Home() {
           )}
         />
       )}
+>>>>>>> c255cd36a6930fd3882ef768515b5f248cf467ff
     </Container>
   );
 }
