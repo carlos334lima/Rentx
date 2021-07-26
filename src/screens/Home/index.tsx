@@ -39,6 +39,8 @@ export function Home() {
         keyExtractor={(item) => String(item)}
         renderItem={({ item }) => <CardCar data={cardDataOne} />}
       />
+
+      
     </Container>
   );
 }
