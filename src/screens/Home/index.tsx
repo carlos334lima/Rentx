@@ -38,8 +38,8 @@ export function Home() {
     fetchData();
   }, []);
 
-  function handleNavigationDetails() {
-    navigation.navigate("CarDetails");
+  function handleNavigationDetails(car : CarDTO ) {
+    navigation.navigate("CarDetails", { car });
   }
 
   return (
@@ -52,19 +52,10 @@ export function Home() {
       <Header>
         <HeaderContent>
           <Logo width={RFValue(108)} height={RFValue(12)} />
-          <TotalCars>Total 14 carros</TotalCars>
+          <TotalCars>Total {cars.length} carros</TotalCars>
         </HeaderContent>
       </Header>
-<<<<<<< HEAD
-
-      <CarList
-        data={[1, 2, 3]}
-        keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <CardCar data={cardDataOne} />}
-      />
-
       
-=======
       {loading ? (
         <Loading/>
       ) : (
@@ -72,11 +63,10 @@ export function Home() {
           data={cars}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
-            <CardCar data={item} onPress={handleNavigationDetails} />
+            <CardCar data={item} onPress={() => handleNavigationDetails(item)} />
           )}
         />
       )}
->>>>>>> c255cd36a6930fd3882ef768515b5f248cf467ff
     </Container>
   );
 }

@@ -9,7 +9,7 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 //@Components
 import { BackButton } from "../../components/BackButton";
@@ -43,9 +43,16 @@ import {
   Footer,
   CarImages,
 } from "./styles";
+import { CarDTO } from "../../DTOS/CarDTO";
+
+interface Params {
+  car: CarDTO
+}
 
 export function CarDetails() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { car } = route.params as Params;
 
   function handleNavigationGoBack(){
     navigation.goBack()
@@ -63,37 +70,32 @@ export function CarDetails() {
 
       <CarImages>
         <ImageSlider
-          imagesURL={[
-            "https://www.motortrend.com/uploads/sites/10/2018/05/2018-audi-rs5-4wd-coupe-angular-front.png",
-          ]}
+          imagesURL={car.photos}
         />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>Lamborghini</Brand>
-            <Name>Huracan</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
 
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 560</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
         <AccessoriesContainer>
-          <Acessory name="300 km/h" icon={speedSvg} />
-          <Acessory name="3.2s" icon={accelerationSvg} />
-          <Acessory name="800 HP" icon={forceSvg} />
-          <Acessory name="Gasolina" icon={gasolineSvg} />
-          <Acessory name="Auto" icon={exchangeSvg} />
-          <Acessory name="2 Pessoas" icon={peopleSvg} />
+          {car.accessories.map(accesory => (
+            <Acessory name={accesory.name} icon={speedSvg} />
+          ))}
         </AccessoriesContainer>
 
 
         <About>
-          o lendário
+          {car.about}
         </About>
       </Content>
 
