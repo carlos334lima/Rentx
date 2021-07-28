@@ -38,7 +38,7 @@ export function Home() {
     fetchData();
   }, []);
 
-  function handleNavigationDetails(car : CarDTO ) {
+  function handleNavigationDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
   }
 
@@ -55,15 +55,18 @@ export function Home() {
           <TotalCars>Total {cars.length} carros</TotalCars>
         </HeaderContent>
       </Header>
-      
+
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <CarList
           data={cars}
           keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
-            <CardCar data={item} onPress={() => handleNavigationDetails(item)} />
+            <CardCar
+              data={item}
+              onPress={() => handleNavigationDetails(item)}
+            />
           )}
         />
       )}

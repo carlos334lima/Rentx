@@ -18,12 +18,12 @@ import { Acessory } from "../../components/Acessory";
 import { Button } from "../../components/Button";
 
 //@Assets
-import speedSvg from '../../assets/speed.svg'
-import accelerationSvg from '../../assets/acceleration.svg'
-import forceSvg from '../../assets/force.svg'
-import gasolineSvg from '../../assets/gasoline.svg'
-import exchangeSvg from '../../assets/exchange.svg'
-import peopleSvg from '../../assets/people.svg'
+import speedSvg from "../../assets/speed.svg";
+import accelerationSvg from "../../assets/acceleration.svg";
+import forceSvg from "../../assets/force.svg";
+import gasolineSvg from "../../assets/gasoline.svg";
+import exchangeSvg from "../../assets/exchange.svg";
+import peopleSvg from "../../assets/people.svg";
 
 //@Styles
 import {
@@ -44,9 +44,10 @@ import {
   CarImages,
 } from "./styles";
 import { CarDTO } from "../../DTOS/CarDTO";
+import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 
 interface Params {
-  car: CarDTO
+  car: CarDTO;
 }
 
 export function CarDetails() {
@@ -54,24 +55,22 @@ export function CarDetails() {
   const route = useRoute();
   const { car } = route.params as Params;
 
-  function handleNavigationGoBack(){
-    navigation.goBack()
+  function handleNavigationGoBack() {
+    navigation.goBack();
   }
 
-  function handleNavigationScheduling(){
-    navigation.navigate("Scheduling")
+  function handleNavigationScheduling() {
+    navigation.navigate("Scheduling");
   }
 
   return (
     <Container>
       <Header>
-        <BackButton onPress={handleNavigationGoBack}/>
+        <BackButton onPress={handleNavigationGoBack} />
       </Header>
 
       <CarImages>
-        <ImageSlider
-          imagesURL={car.photos}
-        />
+        <ImageSlider imagesURL={car.photos} />
       </CarImages>
 
       <Content>
@@ -88,19 +87,23 @@ export function CarDetails() {
         </Details>
 
         <AccessoriesContainer>
-          {car.accessories.map(accesory => (
-            <Acessory name={accesory.name} icon={speedSvg} />
+          {car.accessories.map((accessory) => (
+            <Acessory
+              key={accessory.name}
+              name={accessory.name}
+              icon={getAccessoryIcon(accessory.type)}
+            />
           ))}
         </AccessoriesContainer>
 
-
-        <About>
-          {car.about}
-        </About>
+        <About>{car.about}</About>
       </Content>
 
       <Footer>
-        <Button title="Escolher período de aluguel" onPress={handleNavigationScheduling} />
+        <Button
+          title="Escolher período de aluguel"
+          onPress={handleNavigationScheduling}
+        />
       </Footer>
     </Container>
   );

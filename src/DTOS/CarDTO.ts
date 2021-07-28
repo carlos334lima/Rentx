@@ -7,7 +7,7 @@ export interface CarDTO {
     period: string;
     price: string;
   };
-  full_type: string;
+  fuel_type: string;
   thumbnail: string;
   accessories: {
     type: string;
