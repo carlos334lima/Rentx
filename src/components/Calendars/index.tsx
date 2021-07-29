@@ -1,15 +1,40 @@
 import React from "react";
 
-import { Calendar as CalendarsCustom, LocaleConfig } from "react-native-calendars";
+import {
+  Calendar as CalendarsCustom,
+  LocaleConfig,
+  DateCallbackHandler,
+} from "react-native-calendars";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
 import { ptBR } from "./Locale";
 
+LocaleConfig.locales["pt-br"] = ptBR;
+LocaleConfig.defaultLocale = "pt-br";
 
-LocaleConfig.locales['pt-br'] = ptBR
-LocaleConfig.defaultLocale = 'pt-br'
+interface MarkedDateProps {
+  [date: string]: {
+    color: string;
+    textColor: string;
+    disabled: boolean;
+    disabledTouchEvent: boolean;
+  };
+}
 
-export function Calendars() {
+interface DayProps {
+  dateString: string;
+  day: number;
+  month: number;
+  year: number;
+  timestamp: number;
+}
+
+interface CalendarsProps {
+  MarkedDates: MarkedDateProps;
+  onDayPress: DateCallbackHandler;
+}
+
+function Calendars({ MarkedDates, onDayPress }: CalendarsProps) {
   const theme = useTheme();
   return (
     <CalendarsCustom
@@ -35,11 +60,16 @@ export function Calendars() {
         textMonthFontFamily: theme.fonts.secoundary_600,
         monthTextColor: theme.colors.title,
         arrowStyle: {
-          marginHorizontal: -15
-        }
+          marginHorizontal: -15,
+        },
       }}
       firstDay={1}
       minDate={new Date()}
+      markingType="period"
+      markedDates={MarkedDates}
+      onDayPress={onDayPress}
     />
   );
 }
+
+export { DayProps, Calendars, MarkedDateProps };

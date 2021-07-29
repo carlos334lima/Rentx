@@ -20,11 +20,15 @@ import {
   Content,
   Footer,
 } from "./styles";
-import { Calendars } from "../../components/Calendars";
+import { Calendars, DayProps, MarkedDateProps } from "../../components/Calendars";
 import { useNavigation } from "@react-navigation/native";
+import { generateInterval } from "../../components/Calendars/generateInterval";
 
 export function Scheduling() {
   const navigation = useNavigation();
+
+  const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>({} as DayProps)
+  const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps)
 
 
   function handleNavigationGoBack(){
@@ -33,6 +37,20 @@ export function Scheduling() {
 
   function handleNavigationSchedulingDetail(){
     navigation.navigate("SchedulingDetails")
+  }
+
+  function handleChangeDates(date: DayProps){
+    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate
+    let end = date;
+
+    if(start.timestamp > end.timestamp){ // Guaranteed that selected columns will not be negative
+      start = end
+      end = start
+    }
+
+    setLastSelectedDate(end)
+    const interval = generateInterval(start,end)
+    setMarkedDates(interval)
   }
 
 
@@ -69,7 +87,7 @@ export function Scheduling() {
       </Header>
 
       <Content>
-        <Calendars />
+        <Calendars MarkedDates={markedDates} onDayPress={handleChangeDates}/>
       </Content>
 
       <Footer>
