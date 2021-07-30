@@ -23,19 +23,38 @@ import {
 import { Calendars, DayProps, MarkedDateProps } from "../../components/Calendars";
 import { useNavigation } from "@react-navigation/native";
 import { generateInterval } from "../../components/Calendars/generateInterval";
+import { format } from "date-fns";
+import { getPlatformDate } from "../../Utils/getPlatformDate";
+
+import Snackbar from 'react-native-snackbar';
+
+interface rentPeriod {
+  start: number;
+  end: number;
+  startFormatted: string;
+  endFormatted: string;
+}
 
 export function Scheduling() {
   const navigation = useNavigation();
 
   const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>({} as DayProps)
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps)
+  const [rentPeriod, setRentPeriod] = useState<rentPeriod>({} as rentPeriod)
 
 
   function handleNavigationGoBack(){
     navigation.goBack()
   }
 
-  function handleNavigationSchedulingDetail(){
+  function handleNavigationSchedulingDetail(){ 
+
+    if(!rentPeriod.start || !rentPeriod.end){
+      Snackbar.show({
+        text: 'ola'
+      })
+    }
+
     navigation.navigate("SchedulingDetails")
   }
 
@@ -51,6 +70,16 @@ export function Scheduling() {
     setLastSelectedDate(end)
     const interval = generateInterval(start,end)
     setMarkedDates(interval)
+
+    const firstDay = Object.keys(interval)[0]
+    const endDay = Object.keys(interval)[Object.keys(interval).length - 1]
+
+    setRentPeriod({
+      start: start.timestamp,
+      end: end.timestamp,
+      startFormatted: format(getPlatformDate(new Date(firstDay)), 'dd/MM/yyyy'),
+      endFormatted: format(getPlatformDate(new Date(endDay)), 'dd/MM/yyyy')
+    })
   }
 
 
@@ -74,14 +103,14 @@ export function Scheduling() {
         <RentalPeriod>
           <DateInfo>
             <DateTitle>DE</DateTitle>
-            <DateValue selected={true}>18/06/2021</DateValue>
+            <DateValue selected={!!rentPeriod.startFormatted}>{rentPeriod.startFormatted}</DateValue>
           </DateInfo>
 
           <ArrowSvg />
 
           <DateInfo>
             <DateTitle>Até</DateTitle>
-            <DateValue selected={true}> 18/06/2021</DateValue>
+            <DateValue selected={!!rentPeriod.endFormatted}> {rentPeriod.endFormatted}</DateValue>
           </DateInfo>
         </RentalPeriod>
       </Header>

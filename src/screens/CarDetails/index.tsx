@@ -44,7 +44,7 @@ import {
   CarImages,
 } from "./styles";
 import { CarDTO } from "../../DTOS/CarDTO";
-import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
+import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
 
 interface Params {
   car: CarDTO;

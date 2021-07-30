@@ -4,7 +4,7 @@ import theme from '../../styles/theme';
 
 
 import { DayProps, MarkedDateProps } from '.';
-import { getPlatformDate } from '../../utils/getPlatformDate';
+import { getPlatformDate } from '../../Utils/getPlatformDate';
 
 export function generateInterval(
   start: DayProps,
