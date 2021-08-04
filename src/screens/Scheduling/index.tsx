@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { StatusBar, View, Text } from "react-native";
+import { StatusBar, View, Text, Platform } from "react-native";
 import { useTheme } from "styled-components";
 
 import { BackButton } from "../../components/BackButton";
@@ -58,12 +58,14 @@ export function Scheduling() {
     if (!rentPeriod.start || !rentPeriod.end) {
       return Toast.show({
         type: "error",
-        text1: "Informe o período de aluguel",
+        text1: "Ops!",
+        text2: "Por favor, Informe o período de aluguel 😉",
         position: 'top',
         visibilityTime: 3000,
         autoHide: true,
-        topOffset: 30,
-      });
+        topOffset: Platform.OS === 'ios' ? 50 : 30,
+        
+      })
     }
 
     navigation.navigate("SchedulingDetails");
