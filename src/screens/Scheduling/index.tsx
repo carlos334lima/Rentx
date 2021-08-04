@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { StatusBar } from "react-native";
+import { StatusBar, View, Text } from "react-native";
 import { useTheme } from "styled-components";
 
 import { BackButton } from "../../components/BackButton";
@@ -20,13 +20,17 @@ import {
   Content,
   Footer,
 } from "./styles";
-import { Calendars, DayProps, MarkedDateProps } from "../../components/Calendars";
+import {
+  Calendars,
+  DayProps,
+  MarkedDateProps,
+} from "../../components/Calendars";
 import { useNavigation } from "@react-navigation/native";
 import { generateInterval } from "../../components/Calendars/generateInterval";
 import { format } from "date-fns";
 import { getPlatformDate } from "../../Utils/getPlatformDate";
 
-import Snackbar from 'react-native-snackbar';
+import Toast, { BaseToast } from "react-native-toast-message";
 
 interface rentPeriod {
   start: number;
@@ -38,50 +42,57 @@ interface rentPeriod {
 export function Scheduling() {
   const navigation = useNavigation();
 
-  const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>({} as DayProps)
-  const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps)
-  const [rentPeriod, setRentPeriod] = useState<rentPeriod>({} as rentPeriod)
+  const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
+    {} as DayProps
+  );
+  const [markedDates, setMarkedDates] = useState<MarkedDateProps>(
+    {} as MarkedDateProps
+  );
+  const [rentPeriod, setRentPeriod] = useState<rentPeriod>({} as rentPeriod);
 
-
-  function handleNavigationGoBack(){
-    navigation.goBack()
+  function handleNavigationGoBack() {
+    navigation.goBack();
   }
 
-  function handleNavigationSchedulingDetail(){ 
-
-    if(!rentPeriod.start || !rentPeriod.end){
-      Snackbar.show({
-        text: 'ola'
-      })
+  function handleNavigationSchedulingDetail() {
+    if (!rentPeriod.start || !rentPeriod.end) {
+      return Toast.show({
+        type: "error",
+        text1: "Informe o período de aluguel",
+        position: 'top',
+        visibilityTime: 3000,
+        autoHide: true,
+        topOffset: 30,
+      });
     }
 
-    navigation.navigate("SchedulingDetails")
+    navigation.navigate("SchedulingDetails");
   }
 
-  function handleChangeDates(date: DayProps){
-    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate
+  function handleChangeDates(date: DayProps) {
+    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate;
     let end = date;
 
-    if(start.timestamp > end.timestamp){ // Guaranteed that selected columns will not be negative
-      start = end
-      end = start
+    if (start.timestamp > end.timestamp) {
+      // Guaranteed that selected columns will not be negative
+      start = end;
+      end = start;
     }
 
-    setLastSelectedDate(end)
-    const interval = generateInterval(start,end)
-    setMarkedDates(interval)
+    setLastSelectedDate(end);
+    const interval = generateInterval(start, end);
+    setMarkedDates(interval);
 
-    const firstDay = Object.keys(interval)[0]
-    const endDay = Object.keys(interval)[Object.keys(interval).length - 1]
+    const firstDay = Object.keys(interval)[0];
+    const endDay = Object.keys(interval)[Object.keys(interval).length - 1];
 
     setRentPeriod({
       start: start.timestamp,
       end: end.timestamp,
-      startFormatted: format(getPlatformDate(new Date(firstDay)), 'dd/MM/yyyy'),
-      endFormatted: format(getPlatformDate(new Date(endDay)), 'dd/MM/yyyy')
-    })
+      startFormatted: format(getPlatformDate(new Date(firstDay)), "dd/MM/yyyy"),
+      endFormatted: format(getPlatformDate(new Date(endDay)), "dd/MM/yyyy"),
+    });
   }
-
 
   const theme = useTheme();
   return (
@@ -93,9 +104,13 @@ export function Scheduling() {
       />
       <Header>
         <Back>
-          <BackButton color={theme.colors.shape} onPress={handleNavigationGoBack} />
+          <BackButton
+            color={theme.colors.shape}
+            onPress={handleNavigationGoBack}
+          />
         </Back>
 
+        <Toast ref={(ref) => Toast.setRef(ref)} />
         <Title>
           Escolha uma {"\n"}data de início e {"\n"}fim do aluguel
         </Title>
@@ -103,24 +118,29 @@ export function Scheduling() {
         <RentalPeriod>
           <DateInfo>
             <DateTitle>DE</DateTitle>
-            <DateValue selected={!!rentPeriod.startFormatted}>{rentPeriod.startFormatted}</DateValue>
+            <DateValue selected={!!rentPeriod.startFormatted}>
+              {rentPeriod.startFormatted}
+            </DateValue>
           </DateInfo>
 
           <ArrowSvg />
 
           <DateInfo>
             <DateTitle>Até</DateTitle>
-            <DateValue selected={!!rentPeriod.endFormatted}> {rentPeriod.endFormatted}</DateValue>
+            <DateValue selected={!!rentPeriod.endFormatted}>
+              {" "}
+              {rentPeriod.endFormatted}
+            </DateValue>
           </DateInfo>
         </RentalPeriod>
       </Header>
 
       <Content>
-        <Calendars MarkedDates={markedDates} onDayPress={handleChangeDates}/>
+        <Calendars MarkedDates={markedDates} onDayPress={handleChangeDates} />
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleNavigationSchedulingDetail}/>
+        <Button title="Confirmar" onPress={handleNavigationSchedulingDetail} />
       </Footer>
     </Container>
   );
