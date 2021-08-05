@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar } from "react-native";
+import { Platform, StatusBar, View } from "react-native";
 
 //@Libraries
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
+import Toast, { BaseToast } from "react-native-toast-message";
 
 //@Components
 import { CardCar } from "../../components/CardCar";
@@ -38,19 +39,39 @@ export function Home() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    return Toast.show({
+      type: "info",
+      text1: "Ebaaa!",
+      text2: "Bem vindo ao RentX, de uma olhada e se sinta em casa! 😎",
+      position: 'top',
+      visibilityTime: 3000,
+      topOffset: Platform.OS === 'ios' ? 50 : 30,
+      
+    })
+  },[])
+
   function handleNavigationDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
   }
 
   return (
     <Container>
+
+      <View style={{ elevation: 1}}>
+        <Toast ref={(ref) => Toast.setRef(ref)} />
+      </View>
+      
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
+      
       <Header>
+
         <HeaderContent>
+        
           <Logo width={RFValue(108)} height={RFValue(12)} />
           <TotalCars>Total {cars.length} carros</TotalCars>
         </HeaderContent>

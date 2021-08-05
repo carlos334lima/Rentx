@@ -25,22 +25,27 @@ import {
   DayProps,
   MarkedDateProps,
 } from "../../components/Calendars";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { generateInterval } from "../../components/Calendars/generateInterval";
 import { format } from "date-fns";
 import { getPlatformDate } from "../../Utils/getPlatformDate";
 
 import Toast, { BaseToast } from "react-native-toast-message";
+import { CarDTO } from "../../DTOS/CarDTO";
 
 interface rentPeriod {
-  start: number;
-  end: number;
   startFormatted: string;
   endFormatted: string;
 }
 
+interface Params {
+  car: CarDTO;
+}
+
 export function Scheduling() {
   const navigation = useNavigation();
+  const route = useRoute()
+  const { car } = route.params as Params;
 
   const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
     {} as DayProps
@@ -50,12 +55,25 @@ export function Scheduling() {
   );
   const [rentPeriod, setRentPeriod] = useState<rentPeriod>({} as rentPeriod);
 
+  useEffect(() => {
+    return Toast.show({
+      type: "info",
+      text1: "Chegou a hora!",
+      text2: "Escolha o período que vai ficar com sua nave 🚘",
+      position: 'top',
+      visibilityTime: 3000,
+      autoHide: true,
+      topOffset: Platform.OS === 'ios' ? 50 : 30,
+      
+    })
+  },[])
+
   function handleNavigationGoBack() {
     navigation.goBack();
   }
 
   function handleNavigationSchedulingDetail() {
-    if (!rentPeriod.start || !rentPeriod.end) {
+    if (!rentPeriod.startFormatted || !rentPeriod.endFormatted) {
       return Toast.show({
         type: "error",
         text1: "Ops!",
@@ -66,9 +84,14 @@ export function Scheduling() {
         topOffset: Platform.OS === 'ios' ? 50 : 30,
         
       })
+    } else {
+      navigation.navigate("SchedulingDetails", {
+        car,
+        dates: Object.keys(markedDates)
+      })
     }
 
-    navigation.navigate("SchedulingDetails");
+   
   }
 
   function handleChangeDates(date: DayProps) {
@@ -89,8 +112,6 @@ export function Scheduling() {
     const endDay = Object.keys(interval)[Object.keys(interval).length - 1];
 
     setRentPeriod({
-      start: start.timestamp,
-      end: end.timestamp,
       startFormatted: format(getPlatformDate(new Date(firstDay)), "dd/MM/yyyy"),
       endFormatted: format(getPlatformDate(new Date(endDay)), "dd/MM/yyyy"),
     });

@@ -53,10 +53,14 @@ export function SchedulingDetails() {
     navigation.navigate("SchedulingComplete")
   }
 
+  function handleGoBack(){
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
-        <BackButton />
+        <BackButton onPress={handleGoBack}/>
       </Header>
 
       <CarImages>
@@ -125,7 +129,7 @@ export function SchedulingDetails() {
       </Content>
 
       <Footer>
-        <Button color={theme.colors.success} title="Alugar Agora!" onPress={handleNavigationSchedulingConfirm}/>
+        <Button color={theme.colors.success} title="Alugar Agora" onPress={handleNavigationSchedulingConfirm}/>
       </Footer>
     </Container>
   );
