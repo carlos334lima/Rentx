@@ -52,8 +52,9 @@ interface Params {
 
 export function CarDetails() {
   const navigation = useNavigation();
+  
   const route = useRoute();
-  const { car } = route.params as Params;
+  const { car } = route.params as Params; //Taking data from the other screen
 
   function handleNavigationGoBack() {
     navigation.goBack();

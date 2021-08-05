@@ -24,12 +24,7 @@ interface Props extends RectButtonProps {
 }
 
 export function CardCar({ data, ...rest }: Props) {
-
   const MotorIcon = getAccessoryIcon(data.fuel_type);
-
-  useEffect(() => {
-    console.log(data.fuel_type)
-  },[])
 
   return (
     <Container {...rest}>
@@ -49,10 +44,7 @@ export function CardCar({ data, ...rest }: Props) {
         </About>
       </Details>
 
-      <CarImage 
-        resizeMode="contain"
-        source={{ uri: data.thumbnail }}
-        />
+      <CarImage resizeMode="contain" source={{ uri: data.thumbnail }} />
     </Container>
   );
 }

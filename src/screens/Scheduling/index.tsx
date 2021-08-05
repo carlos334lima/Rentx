@@ -1,13 +1,30 @@
 import React, { useCallback, useEffect, useState } from "react";
-
 import { StatusBar, View, Text, Platform } from "react-native";
-import { useTheme } from "styled-components";
 
+//@Libraries
+import { useTheme } from "styled-components";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { format } from "date-fns";
+import Toast, { BaseToast } from "react-native-toast-message";
+
+//@Components
 import { BackButton } from "../../components/BackButton";
 import { Button } from "../../components/Button";
+import {
+  Calendars,
+  DayProps,
+  MarkedDateProps,
+} from "../../components/Calendars";
+import { generateInterval } from "../../components/Calendars/generateInterval";
 
+//@Assets
 import ArrowSvg from "../../assets/arrow.svg";
 
+//@Utils
+import { getPlatformDate } from "../../Utils/getPlatformDate";
+import { CarDTO } from "../../DTOS/CarDTO";
+
+//@Styles
 import {
   Container,
   Header,
@@ -20,18 +37,6 @@ import {
   Content,
   Footer,
 } from "./styles";
-import {
-  Calendars,
-  DayProps,
-  MarkedDateProps,
-} from "../../components/Calendars";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { generateInterval } from "../../components/Calendars/generateInterval";
-import { format } from "date-fns";
-import { getPlatformDate } from "../../Utils/getPlatformDate";
-
-import Toast, { BaseToast } from "react-native-toast-message";
-import { CarDTO } from "../../DTOS/CarDTO";
 
 interface rentPeriod {
   startFormatted: string;
@@ -44,7 +49,8 @@ interface Params {
 
 export function Scheduling() {
   const navigation = useNavigation();
-  const route = useRoute()
+  
+  const route = useRoute();
   const { car } = route.params as Params;
 
   const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
@@ -60,13 +66,12 @@ export function Scheduling() {
       type: "info",
       text1: "Chegou a hora!",
       text2: "Escolha o período que vai ficar com sua nave 🚘",
-      position: 'top',
+      position: "top",
       visibilityTime: 3000,
       autoHide: true,
-      topOffset: Platform.OS === 'ios' ? 50 : 30,
-      
-    })
-  },[])
+      topOffset: Platform.OS === "ios" ? 50 : 30,
+    });
+  }, []);
 
   function handleNavigationGoBack() {
     navigation.goBack();
@@ -78,20 +83,17 @@ export function Scheduling() {
         type: "error",
         text1: "Ops!",
         text2: "Por favor, Informe o período de aluguel 😉",
-        position: 'top',
+        position: "top",
         visibilityTime: 3000,
         autoHide: true,
-        topOffset: Platform.OS === 'ios' ? 50 : 30,
-        
-      })
+        topOffset: Platform.OS === "ios" ? 50 : 30,
+      });
     } else {
       navigation.navigate("SchedulingDetails", {
         car,
-        dates: Object.keys(markedDates)
-      })
+        dates: Object.keys(markedDates),
+      });
     }
-
-   
   }
 
   function handleChangeDates(date: DayProps) {
@@ -105,7 +107,9 @@ export function Scheduling() {
     }
 
     setLastSelectedDate(end);
+
     const interval = generateInterval(start, end);
+
     setMarkedDates(interval);
 
     const firstDay = Object.keys(interval)[0];

@@ -29,8 +29,24 @@ export function Home() {
       try {
         const response = await api.get("cars");
         setCars(response.data);
+        Toast.show({
+          type: "info",
+          text1: "Ebaaa!",
+          text2: "Bem vindo ao RentX, de uma olhada e se sinta em casa! 😎",
+          position: "top",
+          visibilityTime: 3000,
+          topOffset: Platform.OS === "ios" ? 50 : 30,
+        });
       } catch (error) {
-        console.error(error);
+        return Toast.show({
+          type: "error",
+          text1: "Vixi 😢",
+          text2:
+            "Houve um problema em carregar nossos produtos, entre e saia do app e veja se resolve.",
+          position: "top",
+          visibilityTime: 3000,
+          topOffset: Platform.OS === "ios" ? 50 : 30,
+        });
       } finally {
         setLoading(false);
       }
@@ -39,39 +55,24 @@ export function Home() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    return Toast.show({
-      type: "info",
-      text1: "Ebaaa!",
-      text2: "Bem vindo ao RentX, de uma olhada e se sinta em casa! 😎",
-      position: 'top',
-      visibilityTime: 3000,
-      topOffset: Platform.OS === 'ios' ? 50 : 30,
-      
-    })
-  },[])
-
   function handleNavigationDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
   }
 
   return (
     <Container>
-
-      <View style={{ elevation: 1}}>
+      <View style={{ elevation: 1 }}>
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </View>
-      
+
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-      
-      <Header>
 
+      <Header>
         <HeaderContent>
-        
           <Logo width={RFValue(108)} height={RFValue(12)} />
           <TotalCars>Total {cars.length} carros</TotalCars>
         </HeaderContent>

@@ -1,9 +1,11 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
 
-import { Container } from "./styles";
-
+//@Libraries
 import { useTheme } from "styled-components";
+
+//@Styles
+import { Container } from "./styles";
 
 const Loading = (): JSX.Element => {
   const theme = useTheme();

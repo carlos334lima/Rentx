@@ -1,5 +1,6 @@
 import React from "react";
 
+//@Libraries
 import {
   Calendar as CalendarsCustom,
   LocaleConfig,
@@ -7,6 +8,8 @@ import {
 } from "react-native-calendars";
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
+
+//@Utils
 import { ptBR } from "./Locale";
 
 LocaleConfig.locales["pt-br"] = ptBR;
