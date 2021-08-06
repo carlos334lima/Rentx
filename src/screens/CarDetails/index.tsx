@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "react-native";
 
 //@Libraries
@@ -52,6 +52,8 @@ interface Params {
 
 export function CarDetails() {
   const navigation = useNavigation();
+
+  const [loading, setLoading] = useState(false);
   
   const route = useRoute();
   const { car } = route.params as Params; //Taking data from the other screen
@@ -61,7 +63,11 @@ export function CarDetails() {
   }
 
   function handleNavigationScheduling() {
-    navigation.navigate("Scheduling");
+    setLoading(true)
+    setTimeout(() => {
+      navigation.navigate("Scheduling" , {car})
+      setLoading(false)
+    } , 3000)
   }
 
   return (
@@ -104,6 +110,7 @@ export function CarDetails() {
         <Button
           title="Escolher período de aluguel"
           onPress={handleNavigationScheduling}
+          loading={loading}
         />
       </Footer>
     </Container>

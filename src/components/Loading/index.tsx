@@ -11,7 +11,7 @@ const Loading = (): JSX.Element => {
   const theme = useTheme();
   return (
     <Container>
-      <ActivityIndicator size="large" color={theme.colors.main} />
+      <ActivityIndicator size="large" color='#fff' style={{ opacity: 1 }}/>
     </Container>
   );
 };
