@@ -67,7 +67,7 @@ export function CarDetails() {
     setTimeout(() => {
       navigation.navigate("Scheduling" , {car})
       setLoading(false)
-    } , 3000)
+    } , 1700)
   }
 
   return (

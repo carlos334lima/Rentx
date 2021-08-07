@@ -47,10 +47,18 @@ import { useNavigation } from "@react-navigation/native";
 export function SchedulingDetails() {
   const theme = useTheme();
 
+  const [loading, setLoading] = useState(false)
+
   const navigation = useNavigation();
 
   function handleNavigationSchedulingConfirm(){
-    navigation.navigate("SchedulingComplete")
+
+    setLoading(true)
+
+    setTimeout(() => {
+      navigation.navigate("SchedulingComplete");
+      setLoading(false)
+    }, 1700)
   }
 
   function handleGoBack(){
@@ -129,7 +137,7 @@ export function SchedulingDetails() {
       </Content>
 
       <Footer>
-        <Button color={theme.colors.success} title="Alugar Agora" onPress={handleNavigationSchedulingConfirm}/>
+        <Button color={theme.colors.success} title="Alugar Agora" onPress={handleNavigationSchedulingConfirm} loading={loading}/>
       </Footer>
     </Container>
   );

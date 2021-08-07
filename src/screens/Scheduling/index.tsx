@@ -49,6 +49,8 @@ interface Params {
 
 export function Scheduling() {
   const navigation = useNavigation();
+
+  const [loading, setLoading] = useState(false)
   
   const route = useRoute();
   const { car } = route.params as Params;
@@ -78,6 +80,9 @@ export function Scheduling() {
   }
 
   function handleNavigationSchedulingDetail() {
+
+    setLoading(true);
+
     if (!rentPeriod.startFormatted || !rentPeriod.endFormatted) {
       return Toast.show({
         type: "error",
@@ -89,10 +94,14 @@ export function Scheduling() {
         topOffset: Platform.OS === "ios" ? 50 : 30,
       });
     } else {
-      navigation.navigate("SchedulingDetails", {
-        car,
-        dates: Object.keys(markedDates),
-      });
+      setTimeout(() => {
+        navigation.navigate("SchedulingDetails", {
+          car,
+          dates: Object.keys(markedDates),
+        });
+
+        setLoading(false)
+      }, 1700)
     }
   }
 
@@ -167,7 +176,7 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleNavigationSchedulingDetail} />
+        <Button title="Confirmar" onPress={handleNavigationSchedulingDetail} loading={loading}/>
       </Footer>
     </Container>
   );
