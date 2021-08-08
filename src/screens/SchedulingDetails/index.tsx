@@ -47,6 +47,7 @@ import { CarDTO } from "../../DTOS/CarDTO";
 import { format } from "date-fns";
 import { getPlatformDate } from "../../Utils/getPlatformDate";
 import { api } from "../../services/api";
+import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
 interface Params {
   car: CarDTO;
   dates: string[];
@@ -67,6 +68,10 @@ export function SchedulingDetails() {
   const [dateRental, setDateRental] = useState<PropsDateRental>(
     {} as PropsDateRental
   );
+
+  useEffect(() => {
+    console.log(car)
+  },[])
 
   useEffect(() => {
     setDateRental({
@@ -90,7 +95,15 @@ export function SchedulingDetails() {
       ...dates,
     };
 
-    api.put(`/schedules_bycars/${car.id}`).then(() => {
+    await api.post('schedules_byuser', {
+      user_id: 1,
+      car
+    });
+
+    api.put(`/schedules_bycars/${car.id}`, {
+      id: car.id,
+      unavailable_dates
+    }).then(() => {
       navigation.navigate("SchedulingComplete");
       setLoading(false);
     });
@@ -126,12 +139,13 @@ export function SchedulingDetails() {
         </Details>
 
         <Accessories>
-          <Acessory name="300 km/h" icon={speedSvg} />
-          <Acessory name="3.2s" icon={accelerationSvg} />
-          <Acessory name="800 HP" icon={forceSvg} />
-          <Acessory name="Gasolina" icon={gasolineSvg} />
-          <Acessory name="Auto" icon={exchangeSvg} />
-          <Acessory name="2 Pessoas" icon={peopleSvg} />
+        {car.accessories.map((accessory) => (
+            <Acessory
+              key={accessory.name}
+              name={accessory.name}
+              icon={getAccessoryIcon(accessory.type)}
+            />
+          ))}
         </Accessories>
 
         <RentalPeriod>
