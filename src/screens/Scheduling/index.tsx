@@ -6,6 +6,7 @@ import { useTheme } from "styled-components";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { format } from "date-fns";
 import Toast, { BaseToast } from "react-native-toast-message";
+import Dialog from "react-native-dialog";
 
 //@Components
 import { BackButton } from "../../components/BackButton";
@@ -50,8 +51,9 @@ interface Params {
 export function Scheduling() {
   const navigation = useNavigation();
 
-  const [loading, setLoading] = useState(false)
-  
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   const route = useRoute();
   const { car } = route.params as Params;
 
@@ -80,19 +82,14 @@ export function Scheduling() {
   }
 
   function handleNavigationSchedulingDetail() {
-
     setLoading(true);
 
     if (!rentPeriod.startFormatted || !rentPeriod.endFormatted) {
-      return Toast.show({
-        type: "error",
-        text1: "Ops!",
-        text2: "Por favor, Informe o período de aluguel 😉",
-        position: "top",
-        visibilityTime: 3000,
-        autoHide: true,
-        topOffset: Platform.OS === "ios" ? 50 : 30,
-      });
+      setVisible(true)
+      return setTimeout(() => {
+        setVisible(false)
+        setLoading(false)
+      }, 1700)
     } else {
       setTimeout(() => {
         navigation.navigate("SchedulingDetails", {
@@ -100,8 +97,8 @@ export function Scheduling() {
           dates: Object.keys(markedDates),
         });
 
-        setLoading(false)
-      }, 1700)
+        setLoading(false);
+      }, 1700);
     }
   }
 
@@ -133,6 +130,16 @@ export function Scheduling() {
   const theme = useTheme();
   return (
     <Container>
+      <View>
+        <Dialog.Container visible={visible}>
+          <Dialog.Title>Ops!</Dialog.Title>
+          <Dialog.Description>
+          Por favor, Informe o período de aluguel 😉
+          </Dialog.Description>
+  
+        </Dialog.Container>
+      </View>
+
       <StatusBar
         barStyle="light-content"
         translucent
@@ -176,7 +183,11 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleNavigationSchedulingDetail} loading={loading}/>
+        <Button
+          title="Confirmar"
+          onPress={handleNavigationSchedulingDetail}
+          loading={loading}
+        />
       </Footer>
     </Container>
   );

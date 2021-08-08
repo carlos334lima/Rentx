@@ -42,53 +42,86 @@ import exchangeSvg from "../../assets/exchange.svg";
 import peopleSvg from "../../assets/people.svg";
 import { Button } from "../../components/Button";
 import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { CarDTO } from "../../DTOS/CarDTO";
+import { format } from "date-fns";
+import { getPlatformDate } from "../../Utils/getPlatformDate";
+import { api } from "../../services/api";
+interface Params {
+  car: CarDTO;
+  dates: string[];
+}
+
+interface PropsDateRental {
+  start: string;
+  end: string;
+}
 
 export function SchedulingDetails() {
   const theme = useTheme();
 
-  const [loading, setLoading] = useState(false)
+  const route = useRoute();
+  const { car, dates } = route.params as Params;
+
+  const [loading, setLoading] = useState(false);
+  const [dateRental, setDateRental] = useState<PropsDateRental>(
+    {} as PropsDateRental
+  );
+
+  useEffect(() => {
+    setDateRental({
+      start: format(getPlatformDate(new Date(dates[0])), "dd/MM/yyyy"),
+      end: format(
+        getPlatformDate(new Date(dates[dates.length - 1])),
+        "dd/MM/yyyy"
+      ),
+    });
+  }, []);
 
   const navigation = useNavigation();
 
-  function handleNavigationSchedulingConfirm(){
+  async function handleNavigationSchedulingConfirm() {
+    setLoading(true);
 
-    setLoading(true)
+    const schedulesByCars = await api.get(`/schedules_bycars/${car.id}`);
 
-    setTimeout(() => {
+    const unavailable_dates = {
+      ...schedulesByCars.data.unavailable_dates,
+      ...dates,
+    };
+
+    api.put(`/schedules_bycars/${car.id}`).then(() => {
       navigation.navigate("SchedulingComplete");
-      setLoading(false)
-    }, 1700)
+      setLoading(false);
+    });
   }
 
-  function handleGoBack(){
+  function handleGoBack() {
     navigation.goBack();
   }
+
+  const totalRent = Number(car.rent.price * dates.length);
 
   return (
     <Container>
       <Header>
-        <BackButton onPress={handleGoBack}/>
+        <BackButton onPress={handleGoBack} />
       </Header>
 
       <CarImages>
-        <ImageSlider
-          imagesURL={[
-            "https://www.motortrend.com/uploads/sites/10/2018/05/2018-audi-rs5-4wd-coupe-angular-front.png",
-          ]}
-        />
+        <ImageSlider imagesURL={car.photos} />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>Lamborghini</Brand>
-            <Name>Huracan</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
 
           <Rent>
             <Period>Ao dia</Period>
-            <Price>R$ 560</Price>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
@@ -112,7 +145,7 @@ export function SchedulingDetails() {
 
           <DateInfo>
             <DateTitle>DE</DateTitle>
-            <DateValue>18/06/2021</DateValue>
+            <DateValue>{dateRental.start}</DateValue>
           </DateInfo>
 
           <Feather
@@ -123,21 +156,28 @@ export function SchedulingDetails() {
 
           <DateInfo>
             <DateTitle>ATÉ</DateTitle>
-            <DateValue>18/06/2021</DateValue>
+            <DateValue>{dateRental.end}</DateValue>
           </DateInfo>
         </RentalPeriod>
 
         <RentalPrice>
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
           <RentalPriceDetails>
-            <RentalPriceQuota>R$ 500 x 3 diárias</RentalPriceQuota>
-            <RentalPriceTotal>R$ 1500</RentalPriceTotal>
+            <RentalPriceQuota>
+              R$ {car.rent.price} x {dates.length} diárias
+            </RentalPriceQuota>
+            <RentalPriceTotal>R$ {totalRent}</RentalPriceTotal>
           </RentalPriceDetails>
         </RentalPrice>
       </Content>
 
       <Footer>
-        <Button color={theme.colors.success} title="Alugar Agora" onPress={handleNavigationSchedulingConfirm} loading={loading}/>
+        <Button
+          color={theme.colors.success}
+          title="Alugar Agora"
+          onPress={handleNavigationSchedulingConfirm}
+          loading={loading}
+        />
       </Footer>
     </Container>
   );
