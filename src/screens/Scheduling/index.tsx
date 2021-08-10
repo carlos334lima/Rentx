@@ -82,6 +82,7 @@ export function Scheduling() {
   }
 
   function handleNavigationSchedulingDetail() {
+    
     setLoading(true);
 
     if (!rentPeriod.startFormatted || !rentPeriod.endFormatted) {
@@ -91,6 +92,7 @@ export function Scheduling() {
         setLoading(false)
       }, 1700)
     } else {
+      setEnabled(false);
       setTimeout(() => {
         navigation.navigate("SchedulingDetails", {
           car,
@@ -187,6 +189,7 @@ export function Scheduling() {
           title="Confirmar"
           onPress={handleNavigationSchedulingDetail}
           loading={loading}
+
         />
       </Footer>
     </Container>

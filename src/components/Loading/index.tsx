@@ -7,11 +7,15 @@ import { useTheme } from "styled-components";
 //@Styles
 import { Container } from "./styles";
 
-const Loading = (): JSX.Element => {
+interface Props {
+  color?: any
+}
+
+const Loading = ({color}: Props): JSX.Element => {
   const theme = useTheme();
   return (
     <Container>
-      <ActivityIndicator size="large" color='#fff' style={{ opacity: 1 }}/>
+      <ActivityIndicator size="large" color={color ? color :'#fff'} style={{ opacity: 1 }}/>
     </Container>
   );
 };

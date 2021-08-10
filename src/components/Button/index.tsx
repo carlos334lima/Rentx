@@ -15,7 +15,7 @@ interface Props{
 export function Button({ title, color, onPress, loading = false, ...rest }: Props) {
 
   return (
-    <Container {...rest} color={color} onPress={onPress} style={{ opacity: loading ? 0.3 : 1}}>
+    <Container {...rest} color={color} onPress={onPress} style={{ opacity: loading ? 0.3 : 1}} enabled={!loading}>
       {loading && <Loading/>}
       <Title>{title}</Title>
     </Container>
