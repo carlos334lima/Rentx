@@ -92,7 +92,7 @@ export function Scheduling() {
         setLoading(false)
       }, 1700)
     } else {
-      setEnabled(false);
+    
       setTimeout(() => {
         navigation.navigate("SchedulingDetails", {
           car,

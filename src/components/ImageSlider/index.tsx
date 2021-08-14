@@ -14,12 +14,24 @@ interface Props {
   imagesURL: string[];
 }
 
+interface ChangeImageProps {
+  viewableItems: ViewToken[];
+  changed: ViewToken[];
+}
+
 export function ImageSlider({ imagesURL }: Props) {
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const indexChanged = useRef((info: ChangeImageProps) => {
+    const index = info.viewableItems[0].index!;
+    setImageIndex(index);
+  });
+
   return (
     <Container>
       <ImageIndexContainer>
         {imagesURL.map((_, index) => (
-          <ImageIndex key={index} active={true} />
+          <ImageIndex key={index} active={index === imageIndex} />
         ))}
       </ImageIndexContainer>
 
@@ -33,6 +45,7 @@ export function ImageSlider({ imagesURL }: Props) {
         )}
         horizontal
         showsHorizontalScrollIndicator={false}
+        onViewableItemsChanged={indexChanged.current}
       />
     </Container>
   );
