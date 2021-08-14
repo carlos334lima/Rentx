@@ -59,7 +59,7 @@ export function CarDetails() {
   const { car } = route.params as Params; //Taking data from the other screen
 
   function handleNavigationGoBack() {
-    navigation.goBack();
+    navigation.navigate("Home")
   }
 
   function handleNavigationScheduling() {
