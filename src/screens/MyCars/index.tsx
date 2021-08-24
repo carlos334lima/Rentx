@@ -40,11 +40,10 @@ export function MyCars() {
         const response = await api.get(`schedules_byuser?users_id=1`);
         setCars(response.data);
       } catch (error) {
-
       } finally {
-          setLoading(false)
+        setLoading(false);
       }
-    } 
+    }
 
     fetchCars();
   }, []);
