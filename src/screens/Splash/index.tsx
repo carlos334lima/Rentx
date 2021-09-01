@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { Button, StatusBar, StyleSheet, Dimensions } from "react-native";
 
@@ -9,6 +10,7 @@ import Animated, {
   Easing,
   interpolate,
   Extrapolate,
+  runOnJS,
 } from "react-native-reanimated";
 
 //@Assets
@@ -22,6 +24,7 @@ const WIDTH = Dimensions.get("window").width;
 
 export function Splash() {
   const splashAnimation = useSharedValue(0);
+  const navigation = useNavigation();
 
   const brandStyles = useAnimatedStyle(() => {
     return {
@@ -58,8 +61,15 @@ export function Splash() {
   useEffect(() => {
     splashAnimation.value = withTiming(50, {
       duration: 1500,
+    }, () => {
+      'worklet'
+      runOnJS(startApp)()
     });
   }, []);
+
+  function startApp(){
+    navigation.navigate('Home')
+  }
 
   return (
     <Container>
