@@ -3,10 +3,10 @@ import { Platform, StatusBar, View } from "react-native";
 
 //@Libraries
 import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import Toast, { BaseToast } from "react-native-toast-message";
-import { Ionicons } from '@expo/vector-icons'
-import { useTheme } from 'styled-components'
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "styled-components";
 
 //@Components
 import { CardCar } from "../../components/CardCar";
@@ -16,13 +16,20 @@ import { api } from "../../services/api";
 import Logo from "../../assets/logo.svg";
 
 //@Styles
-import { Container, Header, TotalCars, HeaderContent, CarList, MyCarsButton } from "./styles";
+import {
+  Container,
+  Header,
+  TotalCars,
+  HeaderContent,
+  CarList,
+  MyCarsButton,
+} from "./styles";
 import { CarDTO } from "../../DTOS/CarDTO";
 import { Loading } from "../../components/Loading";
 
 export function Home() {
   const navigation = useNavigation();
-  const theme = useTheme()
+  const theme = useTheme();
 
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,7 +65,7 @@ export function Home() {
     fetchData();
   }, []);
 
-  function handleOpenByCars(){
+  function handleOpenByCars() {
     navigation.navigate("MyCars");
   }
 

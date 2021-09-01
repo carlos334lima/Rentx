@@ -7909,7 +7909,7 @@ react-native-calendars@^1.1264.0:
 
 react-native-dialog@^8.2.0:
   version "8.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-8.2.0.tgz#e7ad6fffd2007b19766961692d553efff377c80b"
+  resolved "https://registry.npmjs.org/react-native-dialog/-/react-native-dialog-8.2.0.tgz"
   integrity sha512-Unfx9curgyCfC6iHJwKVYgztKtE51A6x2pqI4RRt9SXqcurgCb6U6qe93cOY1Y2S7iRxNpgJkF3AS0QahKbPGQ==
 
 react-native-gesture-handler@~1.10.2:
