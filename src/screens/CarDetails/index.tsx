@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 
 //@Libraries
 import Animated, {
@@ -166,6 +166,11 @@ export function CarDetails() {
 
 const styles= StyleSheet.create({
   header: {
-    position: absolute;
+    position: 'absolute',
+    overflow: 'hidden',
+    zIndex:1,
+  },
+  back: {
+    marginTop: 24,
   }
 })

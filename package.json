@@ -1,7 +1,7 @@
 {
   "main": "index.js",
   "scripts": {
-    "iosApi": "json-server server.json --host 192.168.15.8 --port 3333 --delay 700",
+    "iosApi": "json-server server.json --host 192.168.15.41 --port 3333 --delay 700",
     "androidApi": "json-server server.json --host 192.168.15.33 --port 3333 --delay 700",
     "api": "json-server server.json --host 172.18.80.1 --port 3333 --delay 700",
     "android": "react-native run-android",
@@ -26,6 +26,7 @@
     "expo-splash-screen": "~0.10.2",
     "expo-updates": "~0.5.4",
     "json-server": "^0.16.3",
+    "lottie-react-native": "3.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",

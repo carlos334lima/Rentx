@@ -20,6 +20,7 @@ import { FlatList, StatusBar } from "react-native";
 import { CarDTO } from "../../DTOS/CarDTO";
 import { CardCar } from "../../components/CardCar";
 import { Loading } from "../../components/Loading";
+import { LoadAnimation } from "../../components/loadAnimation";
 
 interface CarProps {
   car: CarDTO;
@@ -62,7 +63,7 @@ export function MyCars() {
 
       <Container>
         {loading ? (
-          <Loading color={theme.colors.main} />
+          <LoadAnimation />
         ) : (
           <>
             <Header>
