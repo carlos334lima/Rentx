@@ -42,7 +42,9 @@ export function MyCars() {
         setCars(response.data);
       } catch (error) {
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 4000);
       }
     }
 

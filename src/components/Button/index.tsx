@@ -10,14 +10,15 @@ interface Props{
   color?: string;
   onPress?: () => void
   loading?: boolean;
+  enabled?: boolean;
 }
 
-export function Button({ title, color, onPress, loading = false, ...rest }: Props) {
+export function Button({ title, color, onPress, loading = false, enabled = false , ...rest }: Props) {
 
   return (
-    <Container {...rest} color={color} onPress={onPress} style={{ opacity: loading ? 0.3 : 1}} enabled={!loading}>
+    <Container {...rest} color={color} onPress={onPress} style={{ opacity: loading  || enabled ? 0.3 : 1}} enabled={!loading}>
       {loading && <Loading/>}
-      <Title>{title}</Title>
+      <Title>{loading ? '' : title}</Title>
     </Container>
   );
 }
