@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -8,11 +8,14 @@ import {
 } from "react-native";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/InputEmail";
-import { InputPassword } from "../../components/InputPassword";
+import { PasswordInput } from "../../components/InputPassword";
 
 import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
 
 const SignIn: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -36,13 +39,17 @@ const SignIn: React.FC = () => {
               keyboardType="email-address"
               autoCorrect={false}
               autoCapitalize="none"
+              value={email}
+              onChangeText={setEmail}
             />
-            <InputPassword
+            <PasswordInput
               iconName="lock"
-              placeholder="senha"
+              placeholder="Senha"
               secureTextEntry
               autoCorrect={false}
               autoCapitalize="none"
+              value={password}
+              onChangeText={setPassword}
             />
           </Form>
 
