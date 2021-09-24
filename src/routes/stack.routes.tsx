@@ -10,6 +10,7 @@ import { SchedulingDetails } from "../screens/SchedulingDetails";
 import { SchedulingComplete } from "../screens/SchedulingComplete";
 import { Splash } from "../screens/Splash";
 import SignIn from "../screens/SignIn";
+import {SignUpFirstStep} from "../screens/SignUp/FirstStep";
 
 export function StackRoutes() {
   const { Navigator, Screen } = createStackNavigator();
@@ -24,6 +25,7 @@ export function StackRoutes() {
         gestureEnabled: false,
       }} />
       <Screen name="SignIn" component={SignIn} />
+      <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
       <Screen name="MyCars" component={MyCars} />
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Scheduling" component={Scheduling} />

@@ -14,8 +14,12 @@ import { PasswordInput } from "../../components/InputPassword";
 import * as yup from "yup";
 
 import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
+import { useNavigation } from "@react-navigation/core";
 
 const SignIn: React.FC = () => {
+
+  const navigation = useNavigation()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -38,6 +42,10 @@ const SignIn: React.FC = () => {
         Alert.alert("Error de autenticação");
       }
     }
+  }
+
+  function handleNewAccount(){
+    navigation.navigate('SignUpFirstStep')
   }
 
   return (
@@ -86,7 +94,7 @@ const SignIn: React.FC = () => {
             />
             <Button
               title="Criar Conta Gratuita"
-              onPress={handleSignIn}
+              onPress={handleNewAccount}
               enabled={false}
               loading={false}
             />
