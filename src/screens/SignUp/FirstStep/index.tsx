@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import {
-    Keyboard,
-    KeyboardAvoidingView,
-    TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 //@components
@@ -16,33 +16,41 @@ import { Input } from "../../../components/InputEmail";
 import { Container, Form, Header, Steps, Subtitle, Title } from "./styles";
 
 export function SignUpFirstStep() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <KeyboardAvoidingView behavior="position" enabled>
-                <Container>
-                    <Header>
-                        <BackButton onPress={() => navigation.goBack()} />
-                        <Steps>
-                            <Bullet active />
-                            <Bullet />
-                        </Steps>
-                    </Header>
+  return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView behavior="position" enabled>
+        <Container>
+          <Header>
+            <BackButton onPress={() => navigation.goBack()} />
+            <Steps>
+              <Bullet active />
+              <Bullet />
+            </Steps>
+          </Header>
 
-                    <Title>Crie Sua {"\n"}Conta</Title>
-                    <Subtitle>Crie seu cadastro {"\n"}de forma rápida e fácil</Subtitle>
+          <Title>Crie Sua {"\n"}Conta</Title>
+          <Subtitle>Crie seu cadastro {"\n"}de forma rápida e fácil</Subtitle>
 
-                    <Form>
-                        <Title>1.Dados</Title>
+          <Form>
+            <Title>1.Dados</Title>
 
-                        <Input iconName="user" placeholder="Nome" />
-                        <Input iconName="mail" placeholder="E-mail" keyboardType="email-address" />
-                        <Input iconName="credit-card" placeholder="CNH" keyboardType="numeric" />
-                    </Form>
-                    <Button title="Próximo" />
-                </Container>
-            </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
-    );
+            <Input iconName="user" placeholder="Nome" />
+            <Input
+              iconName="mail"
+              placeholder="E-mail"
+              keyboardType="email-address"
+            />
+            <Input
+              iconName="credit-card"
+              placeholder="CNH"
+              keyboardType="numeric"
+            />
+          </Form>
+          <Button title="Próximo" onPress={() => navigation.navigate('SignUpSecondStep')}/>
+        </Container>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
+  );
 }

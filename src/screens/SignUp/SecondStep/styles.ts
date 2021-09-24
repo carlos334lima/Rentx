@@ -11,7 +11,10 @@ export const Header = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
-export const Form = styled.View``;
+export const Form = styled.View`
+  margin: 10px 0;
+`;
+
 export const Steps = styled.View`
   flex-direction: row;
   align-items: center;
@@ -31,6 +34,7 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.secoundary_600};
   color: ${({ theme }) => theme.colors.title};
   margin-top: 32px;
+  margin-bottom: 10px;
 `;
 export const Subtitle = styled.Text`
   font-size: ${RFValue(15)}px;
