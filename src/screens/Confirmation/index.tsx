@@ -10,7 +10,7 @@ import { ConfirmButtom } from "../../components/ConfirmButtom";
 
 import { useNavigation } from "@react-navigation/native";
 
-export function SchedulingComplete() {
+export function Confirmation() {
   const { width } = useWindowDimensions();
 
   const navigation = useNavigation();

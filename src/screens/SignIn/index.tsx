@@ -15,26 +15,17 @@ import * as yup from "yup";
 
 import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
 import { useNavigation } from "@react-navigation/core";
+import signIn from "../../Utils/Validations/signIn";
 
 const SignIn: React.FC = () => {
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSignIn() {
     try {
-      const schema = yup.object().shape({
-        email: yup
-          .string()
-          .required("E-mail obrigatório!")
-          .email("E-mail inválido!"),
-        password: yup.string().required("Senha obrigatório!"),
-      });
-
-      await schema.validate({ email, password });
-      Alert.alert("Tudo beleza", "Vamos lá!!");
+      await signIn.validate({ email, password });
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         Alert.alert(error.message);
@@ -44,8 +35,8 @@ const SignIn: React.FC = () => {
     }
   }
 
-  function handleNewAccount(){
-    navigation.navigate('SignUpFirstStep')
+  function handleNewAccount() {
+    navigation.navigate("SignUpFirstStep");
   }
 
   return (
