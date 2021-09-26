@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Alert, StatusBar } from "react-native";
+
+//@libraries
+import { format } from "date-fns";
+import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
-
 import { Feather } from "@expo/vector-icons";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
+//@utils
+import { getPlatformDate } from "../../Utils/getPlatformDate";
+import { CarDTO } from "../../DTOS/CarDTO";
+import { api } from "../../services/api";
+import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
+
+//@components
+import { BackButton } from "../../components/BackButton";
+import { ImageSlider } from "../../components/ImageSlider";
+import { Acessory } from "../../components/Acessory";
+import { Button } from "../../components/Button";
+
+//@styles
 import {
   Container,
   Header,
@@ -30,24 +46,6 @@ import {
   RentalPriceTotal,
 } from "./styles";
 
-import { BackButton } from "../../components/BackButton";
-import { ImageSlider } from "../../components/ImageSlider";
-import { Acessory } from "../../components/Acessory";
-
-import speedSvg from "../../assets/speed.svg";
-import accelerationSvg from "../../assets/acceleration.svg";
-import forceSvg from "../../assets/force.svg";
-import gasolineSvg from "../../assets/gasoline.svg";
-import exchangeSvg from "../../assets/exchange.svg";
-import peopleSvg from "../../assets/people.svg";
-import { Button } from "../../components/Button";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { CarDTO } from "../../DTOS/CarDTO";
-import { format } from "date-fns";
-import { getPlatformDate } from "../../Utils/getPlatformDate";
-import { api } from "../../services/api";
-import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
 interface Params {
   car: CarDTO;
   dates: string[];
@@ -70,8 +68,8 @@ export function SchedulingDetails() {
   );
 
   useEffect(() => {
-    console.log(car)
-  },[])
+    console.log(car);
+  }, []);
 
   useEffect(() => {
     setDateRental({
@@ -95,18 +93,20 @@ export function SchedulingDetails() {
       ...dates,
     };
 
-    await api.post('schedules_byuser', {
+    await api.post("schedules_byuser", {
       user_id: 1,
-      car
+      car,
     });
 
-    api.put(`/schedules_bycars/${car.id}`, {
-      id: car.id,
-      unavailable_dates
-    }).then(() => {
-      navigation.navigate("SchedulingComplete");
-      setLoading(false);
-    });
+    api
+      .put(`/schedules_bycars/${car.id}`, {
+        id: car.id,
+        unavailable_dates,
+      })
+      .then(() => {
+        navigation.navigate("SchedulingComplete");
+        setLoading(false);
+      });
   }
 
   function handleGoBack() {
@@ -139,7 +139,7 @@ export function SchedulingDetails() {
         </Details>
 
         <Accessories>
-        {car.accessories.map((accessory) => (
+          {car.accessories.map((accessory) => (
             <Acessory
               key={accessory.name}
               name={accessory.name}

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Feather } from "@expo/vector-icons";
-import { useTheme } from "styled-components";
 import { TextInputProps } from "react-native";
 
+//@libraries
+import { Feather } from "@expo/vector-icons";
+import { useTheme } from "styled-components";
+
+//@styles
 import { Container, IconContainer, InputText } from "./styles";
 
 interface Props extends TextInputProps {

@@ -1,59 +1,51 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
+import { FlatList, ViewToken } from "react-native";
 
-import { FlatList, ViewToken } from 'react-native';
-
+//@styles
 import {
   Container,
   ImageIndexes,
   ImageIndex,
   CarWrapper,
   CarImage,
-} from './styles';
+} from "./styles";
 
 interface Props {
-  imagesUrl: string[]
+  imagesUrl: string[];
 }
 
-
-interface ChangeImageProps{
+interface ChangeImageProps {
   viewableItems: ViewToken[];
   changed: ViewToken[];
 }
 
-export function ImageSlider({ imagesUrl }: Props){
-  const [imageIndex, setImageIndex] = useState(0)
+export function ImageSlider({ imagesUrl }: Props) {
+  const [imageIndex, setImageIndex] = useState(0);
 
-  const indexChanged = useRef((info: ChangeImageProps)=>{
+  const indexChanged = useRef((info: ChangeImageProps) => {
     const index = info.viewableItems[0].index!;
     setImageIndex(index);
-
   });
 
-  return(
+  return (
     <Container>
       <ImageIndexes>
-        {
-          imagesUrl.map((_, index)=>
-            <ImageIndex 
-              active={index === imageIndex}
-              key={String(index)}
-            />
-          )
-        }
-
+        {imagesUrl.map((_, index) => (
+          <ImageIndex active={index === imageIndex} key={String(index)} />
+        ))}
       </ImageIndexes>
-        <FlatList 
-          data={imagesUrl}
-          keyExtractor={key => key}
-          renderItem={({ item }) => 
-            <CarWrapper>
-              <CarImage source={{uri: item }}/>
-            </CarWrapper>
-          }
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          onViewableItemsChanged={indexChanged.current}
-        />
+      <FlatList
+        data={imagesUrl}
+        keyExtractor={(key) => key}
+        renderItem={({ item }) => (
+          <CarWrapper>
+            <CarImage source={{ uri: item }} />
+          </CarWrapper>
+        )}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        onViewableItemsChanged={indexChanged.current}
+      />
     </Container>
-  )
+  );
 }

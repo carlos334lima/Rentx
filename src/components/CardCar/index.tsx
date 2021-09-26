@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 
+//@libraries
 import { RectButtonProps } from "react-native-gesture-handler";
 
-import GosolineSVG from "../../assets/gasoline.svg";
+//@utils
 import { CarDTO } from "../../DTOS/CarDTO";
 import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
 
+//@styles
 import {
   Container,
   Details,

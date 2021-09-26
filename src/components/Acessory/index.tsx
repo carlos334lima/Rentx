@@ -1,7 +1,10 @@
 import React from "react";
+
+//@libraries
 import { RFValue } from "react-native-responsive-fontsize";
 import { SvgProps } from "react-native-svg";
 
+//@styles
 import { Container, Name } from "./styles";
 
 interface Props {

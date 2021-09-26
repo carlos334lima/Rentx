@@ -1,10 +1,13 @@
 //@Libraries
 import { eachDayOfInterval, format } from "date-fns";
 
+//@utils
+import { getPlatformDate } from "../../Utils/getPlatformDate";
+import { DayProps, MarkedDateProps } from ".";
+
+//@styles
 import theme from "../../styles/theme";
 
-import { DayProps, MarkedDateProps } from ".";
-import { getPlatformDate } from "../../Utils/getPlatformDate";
 
 export function generateInterval(
   start: DayProps,

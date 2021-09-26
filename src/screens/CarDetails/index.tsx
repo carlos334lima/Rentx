@@ -73,14 +73,9 @@ export function CarDetails() {
 
   const sliderCarsAnimation = useAnimatedStyle(() => {
     return {
-      opacity: interpolate(
-        scrollY.value,
-        [0, 150],
-        [1, 0],
-        Extrapolate.CLAMP,
-      )
-    }
-  })
+      opacity: interpolate(scrollY.value, [0, 150], [1, 0], Extrapolate.CLAMP),
+    };
+  });
 
   const [loading, setLoading] = useState(false);
 
@@ -106,12 +101,17 @@ export function CarDetails() {
         backgroundColor="transparent"
         translucent
       />
-      <Animated.View style={[headerStyleAnimation] }>
+      <Animated.View style={[headerStyleAnimation]}>
         <Header>
           <BackButton onPress={handleNavigationGoBack} />
         </Header>
 
-        <Animated.View style={[sliderCarsAnimation, { marginTop: getStatusBarHeight() + 30 }]}>
+        <Animated.View
+          style={[
+            sliderCarsAnimation,
+            { marginTop: getStatusBarHeight() + 30 },
+          ]}
+        >
           <ImageSlider imagesUrl={car.photos} />
         </Animated.View>
       </Animated.View>
@@ -164,13 +164,13 @@ export function CarDetails() {
   );
 }
 
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
-    position: 'absolute',
-    overflow: 'hidden',
-    zIndex:1,
+    position: "absolute",
+    overflow: "hidden",
+    zIndex: 1,
   },
   back: {
     marginTop: 24,
-  }
-})
+  },
+});

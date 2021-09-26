@@ -82,17 +82,15 @@ export function Scheduling() {
   }
 
   function handleNavigationSchedulingDetail() {
-    
     setLoading(true);
 
     if (!rentPeriod.startFormatted || !rentPeriod.endFormatted) {
-      setVisible(true)
+      setVisible(true);
       return setTimeout(() => {
-        setVisible(false)
-        setLoading(false)
-      }, 1700)
+        setVisible(false);
+        setLoading(false);
+      }, 1700);
     } else {
-    
       setTimeout(() => {
         navigation.navigate("SchedulingDetails", {
           car,
@@ -136,9 +134,8 @@ export function Scheduling() {
         <Dialog.Container visible={visible}>
           <Dialog.Title>Ops!</Dialog.Title>
           <Dialog.Description>
-          Por favor, Informe o período de aluguel 😉
+            Por favor, Informe o período de aluguel 😉
           </Dialog.Description>
-  
         </Dialog.Container>
       </View>
 
@@ -189,7 +186,6 @@ export function Scheduling() {
           title="Confirmar"
           onPress={handleNavigationSchedulingDetail}
           loading={loading}
-
         />
       </Footer>
     </Container>

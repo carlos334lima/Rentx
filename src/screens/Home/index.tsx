@@ -8,32 +8,32 @@ import {
 } from "react-native";
 
 //@Libraries
-import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation } from "@react-navigation/native";
-import Toast, { BaseToast } from "react-native-toast-message";
-import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "styled-components";
-
-//@Components
-import { CardCar } from "../../components/CardCar";
-import { api } from "../../services/api";
-
-//@Assets
-import Logo from "../../assets/logo.svg";
-
-//@Styles
-import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
-import { CarDTO } from "../../DTOS/CarDTO";
-import { Loading } from "../../components/Loading";
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
+import Toast, { BaseToast } from "react-native-toast-message";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "styled-components";
 import { PanGestureHandler, RectButton } from "react-native-gesture-handler";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import theme from "../../styles/theme";
+
+//@Components
+import { CardCar } from "../../components/CardCar";
+import { Loading } from "../../components/Loading";
+
+//@Assets
+import Logo from "../../assets/logo.svg";
+
+//@utils
+import { api } from "../../services/api";
+import { CarDTO } from "../../DTOS/CarDTO";
+
+//@Styles
+import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
 
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
 

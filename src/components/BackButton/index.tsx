@@ -1,9 +1,12 @@
-import React from 'react';
-import { BorderlessButtonProps } from 'react-native-gesture-handler';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useTheme } from 'styled-components';
+import React from "react";
 
-import { Container } from './styles';
+//@libraries
+import { BorderlessButtonProps } from "react-native-gesture-handler";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useTheme } from "styled-components";
+
+//@styles
+import { Container } from "./styles";
 
 interface Props extends BorderlessButtonProps {
   color?: string;
@@ -23,4 +26,4 @@ const BackButton = ({ color, ...rest }: Props): JSX.Element => {
   );
 };
 
-export {BackButton};
+export { BackButton };

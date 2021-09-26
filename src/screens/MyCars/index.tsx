@@ -1,10 +1,20 @@
+import React, { useState, useEffect } from "react";
+import { FlatList, StatusBar } from "react-native";
+
+//@libraries
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { BackButton } from "../../components/BackButton";
-import { api } from "../../services/api";
 import { useTheme } from "styled-components";
 
+//@components
+import { BackButton } from "../../components/BackButton";
+import { CardCar } from "../../components/CardCar";
+import { LoadAnimation } from "../../components/loadAnimation";
+
+//@utils
+import { api } from "../../services/api";
+import { CarDTO } from "../../DTOS/CarDTO";
+
+//@styles
 import {
   Container,
   Header,
@@ -16,11 +26,6 @@ import {
   AppointmentTitle,
   AppointmentQuantity,
 } from "./styles";
-import { FlatList, StatusBar } from "react-native";
-import { CarDTO } from "../../DTOS/CarDTO";
-import { CardCar } from "../../components/CardCar";
-import { Loading } from "../../components/Loading";
-import { LoadAnimation } from "../../components/loadAnimation";
 
 interface CarProps {
   car: CarDTO;

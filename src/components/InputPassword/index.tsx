@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { TextInputProps } from "react-native";
+
+//@libraries
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
-import { TextInputProps } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
 
+//@styles
 import { Container, IconContainer, InputText } from "./styles";
 
 interface Props extends TextInputProps {
