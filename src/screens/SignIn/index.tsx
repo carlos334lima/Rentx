@@ -16,16 +16,22 @@ import * as yup from "yup";
 import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
 import { useNavigation } from "@react-navigation/core";
 import signIn from "../../Utils/Validations/signIn";
+import { useAuth } from "../../hooks/auth";
+import signInValidations from "../../Utils/Validations/signIn";
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
+
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSignIn() {
     try {
-      await signIn.validate({ email, password });
+      await signInValidations.validate({ email, password });
+
+      signIn({ email, password });
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         Alert.alert(error.message);
