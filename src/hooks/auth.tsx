@@ -1,4 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
+import { Alert } from "react-native";
 import { api } from "../services/api";
 
 interface User {
@@ -39,8 +40,14 @@ function AuthProvider({ children }: AuthProviderProps) {
       password,
     });
 
-    //setData(response.data);
-    console.log(response.data);
+    if (response.status === 200) {
+      const { token, user } = response.data;
+
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      setData({ token, user });
+    }
+
   }
 
   return (
@@ -57,4 +64,4 @@ function useAuth() {
   return context;
 }
 
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };

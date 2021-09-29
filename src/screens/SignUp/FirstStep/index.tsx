@@ -15,6 +15,7 @@ import { BackButton } from "../../../components/BackButton";
 import { Bullet } from "../../../components/Bullet";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/InputEmail";
+import { useAuth } from "../../../hooks/auth";
 import schemaStepFirst from "../../../Utils/Validations/stepFirst";
 
 //@styles
@@ -31,9 +32,13 @@ interface Params {
 export function SignUpFirstStep() {
   const navigation = useNavigation();
 
+  //authenticated user
+  const { user } = useAuth();
+  
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [driverLicense, setDriverLicense] = useState('');
+  const [driverLicense, setDriverLicense] = useState("");
 
   async function handleOpenPassword() {
     try {
@@ -43,7 +48,7 @@ export function SignUpFirstStep() {
         driverLicense,
       });
 
-      const data = { name, email, driverLicense }
+      const data = { name, email, driverLicense };
 
       navigation.navigate("SignUpSecondStep", { user: data });
     } catch (error) {
