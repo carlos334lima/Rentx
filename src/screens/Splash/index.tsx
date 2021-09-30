@@ -1,6 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { Button, StatusBar, StyleSheet, Dimensions } from "react-native";
+import { StatusBar, Dimensions } from "react-native";
 
 //@Libraries
 import Animated, {
@@ -12,6 +11,7 @@ import Animated, {
   Extrapolate,
   runOnJS,
 } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
 
 //@Assets
 import BrandSvg from "../../assets/brand.svg";
@@ -19,8 +19,6 @@ import LogoSvg from "../../assets/logo.svg";
 
 //@Styles
 import { Container } from "./styles";
-
-const WIDTH = Dimensions.get("window").width;
 
 export function Splash() {
   const splashAnimation = useSharedValue(0);
@@ -59,16 +57,20 @@ export function Splash() {
   });
 
   useEffect(() => {
-    splashAnimation.value = withTiming(50, {
-      duration: 1500,
-    }, () => {
-      'worklet'
-      runOnJS(startApp)()
-    });
+    splashAnimation.value = withTiming(
+      50,
+      {
+        duration: 1500,
+      },
+      () => {
+        "worklet";
+        runOnJS(startApp)();
+      }
+    );
   }, []);
 
-  function startApp(){
-    navigation.navigate('Home')
+  function startApp() {
+    navigation.navigate("Home");
   }
 
   return (
@@ -79,11 +81,11 @@ export function Splash() {
         translucent
       />
 
-      <Animated.View style={[brandStyles, {position: "absolute"}]}>
+      <Animated.View style={[brandStyles, { position: "absolute" }]}>
         <BrandSvg width={80} height={50} />
       </Animated.View>
 
-      <Animated.View style={[logoStyles, {position: "absolute"}]}>
+      <Animated.View style={[logoStyles, { position: "absolute" }]}>
         <LogoSvg width={100} height={20} />
       </Animated.View>
     </Container>

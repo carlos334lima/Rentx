@@ -58,8 +58,8 @@ export function SignUpSecondStep() {
           navigation.navigate("SignIn");
         })
         .catch((error) => {
-          console.log(error)
-          Alert.alert("ops...", "Não possível cadastrar")
+          console.log(error);
+          Alert.alert("ops...", "Não possível cadastrar");
         });
     } catch (error) {
       if (error instanceof yup.ValidationError) {

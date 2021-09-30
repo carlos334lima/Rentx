@@ -17,19 +17,10 @@ import { ImageSlider } from "../../components/ImageSlider";
 import { Acessory } from "../../components/Acessory";
 import { Button } from "../../components/Button";
 
-//@Assets
-import speedSvg from "../../assets/speed.svg";
-import accelerationSvg from "../../assets/acceleration.svg";
-import forceSvg from "../../assets/force.svg";
-import gasolineSvg from "../../assets/gasoline.svg";
-import exchangeSvg from "../../assets/exchange.svg";
-import peopleSvg from "../../assets/people.svg";
-
 //@Styles
 import {
   Container,
   Header,
-  SliderContainer,
   AccessoriesContainer,
   Details,
   Description,
@@ -38,10 +29,8 @@ import {
   Rent,
   Period,
   Price,
-  Content,
   About,
   Footer,
-  CarImages,
 } from "./styles";
 import { CarDTO } from "../../DTOS/CarDTO";
 import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";

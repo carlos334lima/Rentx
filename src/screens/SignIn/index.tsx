@@ -7,17 +7,23 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+
+//@libraries
+import * as yup from "yup";
+import { useNavigation } from "@react-navigation/core";
+
+//@components
 import { Button } from "../../components/Button";
 import { Input } from "../../components/InputEmail";
 import { PasswordInput } from "../../components/InputPassword";
 
-import * as yup from "yup";
-
-import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
-import { useNavigation } from "@react-navigation/core";
-import signIn from "../../Utils/Validations/signIn";
+//@utils
 import { useAuth } from "../../hooks/auth";
 import signInValidations from "../../Utils/Validations/signIn";
+
+//@styles
+import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
+
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();

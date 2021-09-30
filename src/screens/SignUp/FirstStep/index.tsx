@@ -34,7 +34,6 @@ export function SignUpFirstStep() {
 
   //authenticated user
   const { user } = useAuth();
-  
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

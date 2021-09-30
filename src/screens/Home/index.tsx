@@ -16,7 +16,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
-import Toast, { BaseToast } from "react-native-toast-message";
+import Toast from "react-native-toast-message";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
 import { PanGestureHandler, RectButton } from "react-native-gesture-handler";

@@ -113,7 +113,7 @@ export function SchedulingDetails() {
     navigation.goBack();
   }
 
-  const totalRent = Number(car.rent.price * dates.length);
+  const totalRent = Number(car.price * dates.length);
 
   return (
     <Container>
@@ -134,7 +134,7 @@ export function SchedulingDetails() {
 
           <Rent>
             <Period>Ao dia</Period>
-            <Price>R$ {car.rent.price}</Price>
+            <Price>R$ {car.price}</Price>
           </Rent>
         </Details>
 
