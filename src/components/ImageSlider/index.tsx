@@ -11,7 +11,10 @@ import {
 } from "./styles";
 
 interface Props {
-  imagesUrl: string[];
+  imagesUrl: {
+    id: string;
+    photo: string;
+  }[];
 }
 
 interface ChangeImageProps {
@@ -36,10 +39,10 @@ export function ImageSlider({ imagesUrl }: Props) {
       </ImageIndexes>
       <FlatList
         data={imagesUrl}
-        keyExtractor={(key) => key}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CarWrapper>
-            <CarImage source={{ uri: item }} />
+            <CarImage source={{ uri: item.photo }} />
           </CarWrapper>
         )}
         horizontal

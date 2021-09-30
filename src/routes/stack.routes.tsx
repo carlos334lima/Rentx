@@ -21,7 +21,7 @@ export function StackRoutes() {
   return (
     <Navigator
       headerMode="none" //No header
-      initialRouteName="SignIn"
+      initialRouteName="Home"
     >
       <Screen name="Splash" component={Splash} />
       <Screen
