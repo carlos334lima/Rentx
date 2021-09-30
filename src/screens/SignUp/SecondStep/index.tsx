@@ -41,6 +41,7 @@ export function SignUpSecondStep() {
 
   async function handleRegister() {
     try {
+      //validations
       await schemaStepSecond.validate({
         password,
         passwordConfirm,
@@ -50,15 +51,13 @@ export function SignUpSecondStep() {
         .post("/users", {
           name: user.name,
           email: user.email,
-          password,
           driver_license: user.driverLicense,
+          password,
         })
         .then((response) => {
-          console.log(response.data);
           navigation.navigate("SignIn");
         })
         .catch((error) => {
-          console.log(error);
           Alert.alert("ops...", "Não possível cadastrar");
         });
     } catch (error) {

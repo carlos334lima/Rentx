@@ -47,7 +47,6 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       setData({ token, user });
     }
-
   }
 
   return (

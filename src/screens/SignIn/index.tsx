@@ -35,9 +35,11 @@ const SignIn: React.FC = () => {
 
   async function handleSignIn() {
     try {
+      //validations
       await signInValidations.validate({ email, password });
 
       signIn({ email, password });
+
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         Alert.alert(error.message);

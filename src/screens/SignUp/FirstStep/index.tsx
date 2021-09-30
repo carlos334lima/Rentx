@@ -41,6 +41,7 @@ export function SignUpFirstStep() {
 
   async function handleOpenPassword() {
     try {
+      //validations
       await schemaStepFirst.validate({
         name,
         email,
