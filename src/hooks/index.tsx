@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 
+//@utils
 import { AuthProvider } from "./auth";
 
 interface AppProviderProps {
@@ -9,4 +10,3 @@ interface AppProviderProps {
 export function AppProvider({ children }: AppProviderProps) {
   return <AuthProvider>{children}</AuthProvider>;
 }
-

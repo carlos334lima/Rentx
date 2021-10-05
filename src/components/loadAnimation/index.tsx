@@ -6,6 +6,7 @@ import LottieView from "lottie-react-native";
 //@assets
 import LoadAnimationImage from "../../assets/load_animation.json";
 
+//@styles
 import { Container } from "./styles";
 
 export const LoadAnimation = () => {

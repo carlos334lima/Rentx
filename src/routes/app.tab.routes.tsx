@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 
 //@libraries
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,8 +13,9 @@ import CarSvg from "../assets/car.svg";
 import { Home } from "../screens/Home";
 import { MyCars } from "../screens/MyCars";
 import { AppStackRoutes } from "./app.stack.routes";
+
+//@styles
 import theme from "../styles/theme";
-import { Platform } from "react-native";
 
 export function AppTabRoutes() {
   const { Navigator, Screen } = createBottomTabNavigator();

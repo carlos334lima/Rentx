@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
-import { Alert } from "react-native";
+
+//@utils
 import { api } from "../services/api";
 
 interface User {
