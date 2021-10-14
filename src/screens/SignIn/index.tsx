@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Keyboard,
@@ -23,7 +23,7 @@ import signInValidations from "../../Utils/Validations/signIn";
 
 //@styles
 import { Container, Footer, Form, Header, SubTitle, Title } from "./styles";
-
+import { database } from "../../database";
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
@@ -39,7 +39,6 @@ const SignIn: React.FC = () => {
       await signInValidations.validate({ email, password });
 
       signIn({ email, password });
-
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         Alert.alert(error.message);
