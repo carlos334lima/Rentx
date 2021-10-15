@@ -7,12 +7,10 @@ import React, {
   useState,
 } from "react";
 
-//
-
 //@utils
+import { api } from "../services/api";
 import { database } from "../database";
 import { User as ModelUser } from "../database/models/user";
-import { api } from "../services/api";
 
 interface User {
   id: string;
@@ -57,6 +55,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         const userCollection = database.get<ModelUser>("users");
         await database.action(async () => {
+
           /* create new User - database */
           await userCollection.create((newUser) => {
             newUser.user_id = user.id;

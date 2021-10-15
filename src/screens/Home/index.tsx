@@ -38,6 +38,8 @@ import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
 export function Home() {
+  let isMounted = true;
+
   const navigation = useNavigation();
   const theme = useTheme();
 
@@ -80,7 +82,11 @@ export function Home() {
     async function fetchData() {
       try {
         const response = await api.get("cars");
-        setCars(response.data);
+
+        if (isMounted) {
+          setCars(response.data);
+        }
+
         Toast.show({
           type: "info",
           text1: "Ebaaa!",
@@ -100,11 +106,17 @@ export function Home() {
           topOffset: Platform.OS === "ios" ? 50 : 30,
         });
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchData();
+
+    return () => {
+      isMounted = false
+    }
   }, []);
 
   function handleOpenByCars() {
