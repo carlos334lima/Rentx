@@ -44,9 +44,12 @@ import {
 import theme from "../../styles/theme";
 
 export function Profile() {
-  const navigation = useNavigation();
   const { user } = useAuth();
+  const navigation = useNavigation();
 
+  const [name, setName] = useState(user.name);
+  const [avatar, setAvatar] = useState("");
+  const [driver_license, setDriverLicense] = useState(user.driver_license);
   const [activeOption, setActiveOption] = useState<"dataEdit" | "passwordEdit">(
     "dataEdit"
   );
@@ -55,6 +58,25 @@ export function Profile() {
     navigation.goBack();
   }
 
+  function handleSignOut() {}
+
+  const handleSelectedPickImage = async () => {
+    let photo = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (photo.cancelled) {
+      return;
+    }
+
+    if (photo.uri) {
+      setAvatar(photo.uri);
+    }
+  };
+
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <Container>
@@ -62,18 +84,20 @@ export function Profile() {
           <HeaderTop>
             <BackButton color={theme.colors.shape} onPress={handleBack} />
             <HeaderTitle>Editar Perfil</HeaderTitle>
-            <LogoutButton onPress={() => {}}>
+            <LogoutButton onPress={handleSignOut}>
               <Feather name="power" size={24} color={theme.colors.shape} />
             </LogoutButton>
           </HeaderTop>
 
           <PhotoContainer>
-            <Photo
-              source={{
-                uri: "https://avatars.githubusercontent.com/u/68131444?v=4",
-              }}
-            />
-            <PhotoButton onPress={() => {}}>
+            {!!avatar && (
+              <Photo
+                source={{
+                  uri: avatar,
+                }}
+              />
+            )}
+            <PhotoButton onPress={handleSelectedPickImage}>
               <Feather name="camera" size={24} color={theme.colors.shape} />
             </PhotoButton>
           </PhotoContainer>
@@ -106,12 +130,15 @@ export function Profile() {
                 placeholder="Nome"
                 autoCorrect={false}
                 defaultValue={user.name}
+                onChangeText={setName}
+                value={name}
               />
               <Input
                 iconName="mail"
                 editable={false}
                 autoCorrect={false}
                 defaultValue={user.email}
+                value={user.email}
               />
               <Input
                 iconName="credit-card"
@@ -119,6 +146,7 @@ export function Profile() {
                 keyboardType="numeric"
                 autoCorrect={false}
                 defaultValue={user.driver_license}
+                value={driver_license}
               />
             </Section>
           )}
