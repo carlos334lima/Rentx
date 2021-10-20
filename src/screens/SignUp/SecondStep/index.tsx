@@ -47,17 +47,21 @@ export function SignUpSecondStep() {
         passwordConfirm,
       });
 
-      await api
-        .post("/users", {
-          name: user.name,
+      const data = {
+        name: user.name,
           email: user.email,
           driver_license: user.driverLicense,
           password,
-        })
+      }
+
+      await api
+        .post("/users", data)
         .then((response) => {
+          console.log('@response', response.data)
           navigation.navigate("SignIn");
         })
         .catch((error) => {
+          console.log(error)
           Alert.alert("ops...", "Não possível cadastrar");
         });
     } catch (error) {

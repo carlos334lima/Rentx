@@ -44,7 +44,7 @@ import {
 import theme from "../../styles/theme";
 
 export function Profile() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const navigation = useNavigation();
 
   const [name, setName] = useState(user.name);
@@ -58,7 +58,7 @@ export function Profile() {
     navigation.goBack();
   }
 
-  function handleSignOut() {}
+  
 
   const handleSelectedPickImage = async () => {
     let photo = await ImagePicker.launchImageLibraryAsync({
@@ -84,7 +84,7 @@ export function Profile() {
           <HeaderTop>
             <BackButton color={theme.colors.shape} onPress={handleBack} />
             <HeaderTitle>Editar Perfil</HeaderTitle>
-            <LogoutButton onPress={handleSignOut}>
+            <LogoutButton onPress={signOut}>
               <Feather name="power" size={24} color={theme.colors.shape} />
             </LogoutButton>
           </HeaderTop>
