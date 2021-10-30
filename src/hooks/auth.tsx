@@ -31,6 +31,7 @@ interface AuthContextData {
   user: User;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => Promise<void>;
+  updateUser: (user: User) => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -41,6 +42,22 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<User>({} as User);
+
+  useEffect(() => {
+    async function loadData() {
+      const userCollection = database.get("users");
+      const response = await userCollection.query().fetch();
+
+      if (response.length > 0) {
+        const userData = response[0]._raw as unknown as User;
+        api.defaults.headers.authorization = `Bearer ${userData.token}`;
+
+        setData(userData);
+      }
+    }
+
+    loadData();
+  }, []);
 
   async function signIn({ email, password }: SignInCredentials) {
     try {
@@ -86,24 +103,27 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  useEffect(() => {
-    async function loadData() {
-      const userCollection = database.get("users");
-      const response = await userCollection.query().fetch();
+  async function updateUser(user: User) {
+    try {
+      const userCollection = database.get<ModelUser>("users");
 
-      if (response.length > 0) {
-        const userData = response[0]._raw as unknown as User;
-        api.defaults.headers.authorization = `Bearer ${userData.token}`;
+      await database.action(async () => {
+        const userSelected = await userCollection.find(user.id);
+        await userSelected.update((userData) => {
+          userData.name = user.name;
+          userData.avatar = user.avatar;
+          userData.driver_license = user.driver_license;
+        });
+      });
 
-        setData(userData);
-      }
+      setData(user);
+    } catch (error: any) {
+      throw new Error(error);
     }
-
-    loadData();
-  }, []);
+  }
 
   return (
-    <AuthContext.Provider value={{ user: data, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data, signIn, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
