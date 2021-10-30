@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   BackHandler,
   Platform,
   StatusBar,
@@ -14,11 +15,12 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useNavigation } from "@react-navigation/native";
-import Toast from "react-native-toast-message";
-import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
+import { Ionicons } from "@expo/vector-icons";
+import Toast from "react-native-toast-message";
+import { useNetInfo } from "@react-native-community/netinfo";
+import { useNavigation } from "@react-navigation/native";
+import { RFValue } from "react-native-responsive-fontsize";
 import { PanGestureHandler, RectButton } from "react-native-gesture-handler";
 
 //@Components
@@ -41,6 +43,7 @@ export function Home() {
   let isMounted = true;
 
   const navigation = useNavigation();
+  const netInfo = useNetInfo();
   const theme = useTheme();
 
   const positionY = useSharedValue(0);
@@ -71,6 +74,14 @@ export function Home() {
 
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if(netInfo.isConnected) {
+      Alert.alert('Você está conectado!')
+    } else {
+      Alert.alert('Você está desconectado!')
+    }
+  }, [netInfo.isConnected])
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => {
@@ -115,8 +126,8 @@ export function Home() {
     fetchData();
 
     return () => {
-      isMounted = false
-    }
+      isMounted = false;
+    };
   }, []);
 
   function handleOpenByCars() {
