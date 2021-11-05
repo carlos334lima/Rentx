@@ -23,6 +23,7 @@ interface ChangeImageProps {
 }
 
 export function ImageSlider({ imagesUrl }: Props) {
+  console.log('@imagesUrl', imagesUrl)
   const [imageIndex, setImageIndex] = useState(0);
 
   const indexChanged = useRef((info: ChangeImageProps) => {
@@ -33,8 +34,8 @@ export function ImageSlider({ imagesUrl }: Props) {
   return (
     <Container>
       <ImageIndexes>
-        {imagesUrl.map((_, index) => (
-          <ImageIndex active={index === imageIndex} key={String(index)} />
+        {imagesUrl.map((item, index) => (
+          <ImageIndex active={index === imageIndex} key={String(item.id)} />
         ))}
       </ImageIndexes>
       <FlatList

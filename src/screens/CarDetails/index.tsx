@@ -10,12 +10,16 @@ import Animated, {
   Extrapolate,
 } from "react-native-reanimated";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 //@Components
 import { BackButton } from "../../components/BackButton";
 import { ImageSlider } from "../../components/ImageSlider";
 import { Acessory } from "../../components/Acessory";
 import { Button } from "../../components/Button";
+
+//@Utils
+import { CarDTO } from "../../DTOS/CarDTO";
+import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
 
 //@Styles
 import {
@@ -32,9 +36,6 @@ import {
   About,
   Footer,
 } from "./styles";
-import { CarDTO } from "../../DTOS/CarDTO";
-import { getAccessoryIcon } from "../../Utils/getAccessoryIcon";
-import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
 interface Params {
   car: CarDTO;
@@ -46,7 +47,6 @@ export function CarDetails() {
   const scrollY = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
-    console.log(event.contentOffset.y);
   });
 
   const headerStyleAnimation = useAnimatedStyle(() => {
@@ -70,6 +70,7 @@ export function CarDetails() {
 
   const route = useRoute();
   const { car } = route.params as Params; //Taking data from the other screen
+
 
   function handleNavigationGoBack() {
     navigation.navigate("Home");

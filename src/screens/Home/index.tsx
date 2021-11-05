@@ -75,13 +75,6 @@ export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if(netInfo.isConnected) {
-      Alert.alert('Você está conectado!')
-    } else {
-      Alert.alert('Você está desconectado!')
-    }
-  }, [netInfo.isConnected])
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => {

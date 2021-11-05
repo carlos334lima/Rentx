@@ -45,6 +45,7 @@ import {
   RentalPriceQuota,
   RentalPriceTotal,
 } from "./styles";
+import { Alert } from "react-native";
 
 interface Params {
   car: CarDTO;
@@ -67,9 +68,7 @@ export function SchedulingDetails() {
     {} as PropsDateRental
   );
 
-  useEffect(() => {
-    console.log(car);
-  }, []);
+
 
   useEffect(() => {
     setDateRental({
@@ -83,47 +82,50 @@ export function SchedulingDetails() {
 
   const navigation = useNavigation();
 
+  const rentTotal = Number(dates.length * car.price);
+
   async function handleNavigationSchedulingConfirm() {
     setLoading(true);
 
-    const schedulesByCars = await api.get(`/schedules_bycars/${car.id}`);
-
-    const unavailable_dates = {
-      ...schedulesByCars.data.unavailable_dates,
-      ...dates,
-    };
-
-    await api.post("schedules_byuser", {
+    await api.post('/rentals', {      
       user_id: 1,
-      car,
-    });
-
-    api
-      .put(`/schedules_bycars/${car.id}`, {
-        id: car.id,
-        unavailable_dates,
+      car_id: car.id,
+      start_date: new Date(),
+      end_date: new Date(),
+      total: rentTotal
+    })
+    .then(() => {
+      navigation.navigate('Confirmation', {
+        nextScreenRoute: 'Home',
+        title: 'Carro alugado!',
+        message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel.`
       })
-      .then(() => {
-        navigation.navigate("SchedulingComplete");
-        setLoading(false);
-      });
+    })
+    .catch((erro) => {
+      console.log('erro', erro)
+      setLoading(false);
+      Alert.alert('Não foi possível confirmar o agendamento.')
+    })
   }
 
-  function handleGoBack() {
-    navigation.goBack();
+  function handleBack(){
+    navigation.goBack();    
   }
 
-  const totalRent = Number(car.price * dates.length);
+  useEffect(() => {
+    setDateRental({
+      start: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+      end:  format(getPlatformDate(new Date(dates[dates.length - 1])), 'dd/MM/yyyy'),
+    })
+  },[])
 
   return (
     <Container>
       <Header>
-        <BackButton onPress={handleGoBack} />
+        <BackButton onPress={handleBack} />
       </Header>
 
-      <CarImages>
-        <ImageSlider imagesURL={car.photos} />
-      </CarImages>
+     
 
       <Content>
         <Details>
@@ -178,9 +180,9 @@ export function SchedulingDetails() {
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
           <RentalPriceDetails>
             <RentalPriceQuota>
-              R$ {car.rent.price} x {dates.length} diárias
+              R$ {car.price} x {dates.length} diárias
             </RentalPriceQuota>
-            <RentalPriceTotal>R$ {totalRent}</RentalPriceTotal>
+            <RentalPriceTotal>R$ {rentTotal}</RentalPriceTotal>
           </RentalPriceDetails>
         </RentalPrice>
       </Content>
